@@ -1,0 +1,24 @@
+.navbar {
+    grid-area: n;
+    margin-bottom: 15px;
+
+    .navbarItem {
+        padding: 5px 0px 5px 0px;
+
+        &:hover {
+            background-color: #f0eded;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 5px 100% 5px 15px;
+        }
+
+        a.navbarItemActive {
+            color: darkorange;
+        }
+    }
+}
+

@@ -1,0 +1,30 @@
+.post {
+    margin-top: 10px;
+
+    .postItems {
+        display: flex;
+        .postItemImg {
+            .postItemAvatar {
+                height: 45px;
+                border-radius: 100%;
+            }
+        }
+
+        .postItemPost {
+            display: flex;
+            align-items:center;
+            margin: 0px 5px;
+            padding: 10px 10px;
+            border: 1px solid #ebe8e8;
+            border-radius: 3px;
+            max-width: 350px;
+        }
+
+        .postItemLikes {
+            display: flex;
+            align-items: flex-end;
+        }
+
+    }
+}
+

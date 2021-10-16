@@ -1,0 +1,46 @@
+@mixin button($color, $hoverColor) {
+    color: black;
+    border: none;
+    font-size: 15px;
+    margin: 5px 0px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: $color;
+    box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.75);
+    &:hover {
+        background-color: $hoverColor;
+    }
+}
+
+.myPosts {
+    padding: 5px 0px 5px 15px;
+
+    .myPostsTitle {
+        margin-bottom: 10px;
+    }
+
+    .myPostsTextArea {
+        margin-bottom: 10px;
+    }
+
+    .myPostsElements {
+        margin-bottom: 10px;
+    }
+
+    .error {
+        border: 2px solid red;
+    }
+
+    textarea {
+        padding: 5px;
+        max-width: 270px;
+        min-width: 270px;
+        max-height: 75px;
+        min-height: 75px;
+    }
+
+    .addPostButton {
+        @include button(#F5F5F5, #ebe8e8)
+    }
+}
+
