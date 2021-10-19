@@ -1,12 +1,12 @@
 import Post, {PostType} from "./Post/Post";
 import s from './MyPosts.module.scss'
 import {useState, KeyboardEvent, createRef} from "react";
+import {ActionsTypes, AddPostAC, ChangeNewTextAC} from "../../../redux/state";
 
 type MyPostType = {
     posts: Array<PostType>
-    addPost: () => void
+    dispatch: (action: ActionsTypes) => void
     postText: string
-    changePostText: (postText: string) => void
 }
 
 function MyPosts(props: MyPostType) {
@@ -18,7 +18,7 @@ function MyPosts(props: MyPostType) {
 
         if (postRef.current) {
             const postText = postRef.current.value
-            props.changePostText(postText)
+            props.dispatch(ChangeNewTextAC(postText))
             setError(false)
         }
     }
@@ -26,7 +26,7 @@ function MyPosts(props: MyPostType) {
         if (postRef.current) {
             const postText = postRef.current.value
             if(postText.trim()) {
-                props.addPost()
+                props.dispatch(AddPostAC())
             } else {
                 setError(true)
             }
