@@ -11,7 +11,6 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
-import UserDescription from "./components/Profile/UserDescription/UserDescription";
 import { MyPage } from './components/Profile/MyPage';
 
 const Item = styled(Paper)(({theme}) => ({
@@ -44,7 +43,8 @@ function App(props: AppType) {
                                        render={() => <MyPage profilePage={props.state.profilePage}
                                                              dispatch={props.dispatch}/>}/>
                                 <Route path='/dialogs'
-                                       render={() => <Dialogs messagesPage={props.state.messagesPage}/>}/>
+                                       render={() => <Dialogs messagesPage={props.state.messagesPage}
+                                                              dispatch={props.dispatch}/>}/>
                             </Item>
                         </Grid>
                     </Grid>

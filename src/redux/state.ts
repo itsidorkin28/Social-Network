@@ -21,12 +21,19 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-export type ActionsTypes = ReturnType<typeof AddPostAC>
+export type ActionsTypes = ReturnType<typeof AddPostAC> | ReturnType<typeof SendMessageAC>
 
 export const AddPostAC = (postText: string) => {
     return {
         type: "ADD-POST",
         postText: postText
+    } as const
+}
+
+export const SendMessageAC = (messageText: string) => {
+    return {
+        type: "SEND-MESSAGE",
+        messageText: messageText
     } as const
 }
 
@@ -63,6 +70,10 @@ export const store: StoreType = {
         if (action.type === 'ADD-POST') {
             const newPost: PostType = {id: v1(), post: action.postText, likesCount: 0}
             this._state.profilePage.posts.push(newPost)
+            this._callSubscriber()
+        } else if (action.type === 'SEND-MESSAGE') {
+            const newMessage: MessageType = {id: v1(), message: action.messageText}
+            this._state.messagesPage.messages.push(newMessage)
             this._callSubscriber()
         }
     }

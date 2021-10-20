@@ -1,4 +1,4 @@
-import s from "../Dialogs.module.scss";
+import s from "./Message.module.scss";
 import React from "react";
 
 export type MessageType = {
