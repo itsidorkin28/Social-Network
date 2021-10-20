@@ -6,7 +6,6 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 export type StateType = {
     profilePage: {
         posts: Array<PostType>
-        postText: string
     }
     messagesPage: {
         messages: Array<MessageType>
@@ -22,19 +21,15 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-export type ActionsTypes = ReturnType<typeof AddPostAC> | ReturnType<typeof ChangeNewTextAC>
+export type ActionsTypes = ReturnType<typeof AddPostAC>
 
-export const AddPostAC = () => {
+export const AddPostAC = (postText: string) => {
     return {
         type: "ADD-POST",
-    } as const
-}
-export const ChangeNewTextAC = (postText: string) => {
-    return {
-        type: "CHANGE-POST-TEXT",
         postText: postText
     } as const
 }
+
 
 export const store: StoreType = {
     _state: {
@@ -42,8 +37,7 @@ export const store: StoreType = {
             posts: [
                 {id: v1(), post: 'Hello!', likesCount: 3},
                 {id: v1(), post: 'JS!', likesCount: 9}
-            ],
-            postText: ''
+            ]
         },
         messagesPage: {
             dialogs: [
@@ -66,14 +60,10 @@ export const store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action: ActionsTypes) {
-        if(action.type === 'ADD-POST') {
-            const newPost: PostType = {id: v1(), post: this._state.profilePage.postText, likesCount: 0}
+        if (action.type === 'ADD-POST') {
+            const newPost: PostType = {id: v1(), post: action.postText, likesCount: 0}
             this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.postText = ''
-            this._callSubscriber()
-        } else if (action.type === 'CHANGE-POST-TEXT') {
-            this._state.profilePage.postText = action.postText
             this._callSubscriber()
         }
-    },
+    }
 }

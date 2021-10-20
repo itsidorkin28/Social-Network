@@ -26,21 +26,5 @@
     .myPostsElements {
         margin-bottom: 10px;
     }
-
-    .error {
-        border: 2px solid red;
-    }
-
-    textarea {
-        padding: 5px;
-        max-width: 270px;
-        min-width: 270px;
-        max-height: 75px;
-        min-height: 75px;
-    }
-
-    .addPostButton {
-        @include button(#F5F5F5, #ebe8e8)
-    }
 }
 
