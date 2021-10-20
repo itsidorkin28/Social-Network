@@ -20,8 +20,7 @@ function Dialogs(props: DialogsType) {
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
-
-            <div className={s.dialogsMessages}>
+            <div className={s.messagesItems}>
                 {messagesElements}
             </div>
         </div>

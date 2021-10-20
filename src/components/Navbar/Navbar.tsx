@@ -5,11 +5,15 @@ import { NavLink } from 'react-router-dom';
 export function Navbar() {
     return (
         <nav className={s.navbar}>
-            <div className={s.navbarItem}>
-               <NavLink to='/profile' activeClassName={s.navbarItemActive}>Profile</NavLink>
+            <div>
+               <NavLink to='/mypage' activeClassName={s.active}>
+                   My Page
+               </NavLink>
             </div>
-            <div className={s.navbarItem}>
-                <NavLink to='/dialogs' activeClassName={s.navbarItemActive}>Messages</NavLink>
+            <div>
+                <NavLink to='/dialogs' activeClassName={s.active}>
+                    Messages
+                </NavLink>
             </div>
         </nav>
     )

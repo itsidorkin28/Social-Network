@@ -3,7 +3,6 @@ import s from './MyPosts.module.scss'
 import {useState, KeyboardEvent, createRef, ChangeEvent} from "react";
 import {ActionsTypes, AddPostAC} from "../../../redux/state";
 import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -23,7 +22,7 @@ function MyPosts(props: MyPostType) {
     };
 
     const addPost = () => {
-        if(value.trim()) {
+        if (value.trim()) {
             props.dispatch(AddPostAC(value.trim()))
             setValue('')
         }
@@ -35,18 +34,17 @@ function MyPosts(props: MyPostType) {
     }
     return (
         <div className={s.myPosts}>
-            <div className={s.myPostsTitle}>
+            <div>
                 <h3>My posts</h3>
             </div>
-            <div className={s.myPostsTextArea}>
+            <div>
                 <Box
                     component="form"
                     sx={{
-                        '& .MuiTextField-root': {mb: 1, width: '25ch'},
+                        '& .MuiTextField-root': {mb: 1, width: '100%'},
                     }}
                     noValidate
-                    autoComplete="off"
-                >
+                    autoComplete="off">
                     <TextField
                         id="outlined-multiline-flexible"
                         label="What's new?"
@@ -54,26 +52,19 @@ function MyPosts(props: MyPostType) {
                         maxRows={4}
                         value={value}
                         onChange={handleChange}
-                        onKeyPress={handleKeyPress}
-                    />
-                </Box>
+                        onKeyPress={handleKeyPress}/>
 
+                </Box>
                 <Stack direction="row" spacing={1}>
-                    <Button variant="outlined" startIcon={<DeleteIcon/>}>
-                        Delete
-                    </Button>
                     <Button variant="contained" endIcon={<SendIcon/>} onClick={addPost}>
                         Send
                     </Button>
                 </Stack>
-
             </div>
-            <div className={s.myPostsElements}>
+            <div>
                 {postsElements}
             </div>
         </div>
-
-
     )
 }
 

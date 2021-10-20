@@ -2,11 +2,24 @@ import React from 'react'
 import './App.module.scss'
 import s from './App.module.scss'
 import Dialogs from './components/Dialogs/Dialogs';
-import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile";
 import {Route} from "react-router-dom";
 import {ActionsTypes, StateType} from "./redux/state";
+import {styled} from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import Header from './components/Header/Header';
+import UserDescription from "./components/Profile/UserDescription/UserDescription";
+import { MyPage } from './components/Profile/MyPage';
+
+const Item = styled(Paper)(({theme}) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 type AppType = {
     state: StateType
@@ -15,18 +28,29 @@ type AppType = {
 
 function App(props: AppType) {
     return (
-        
         <div className={s.app}>
             <Header/>
-            <Navbar/>
-            <div className={s.appContent}>
-                <Route path='/profile'
-                       render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
-                <Route path='/dialogs'
-                       render={() => <Dialogs messagesPage={props.state.messagesPage}/>}/>
-            </div>
+            <Container maxWidth="lg">
+                <Box sx={{flexGrow: 1}}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={3}>
+                            <Item>
+                                <Navbar/>
+                            </Item>
+                        </Grid>
+                        <Grid item xs={9}>
+                            <Item>
+                                <Route path='/mypage'
+                                       render={() => <MyPage profilePage={props.state.profilePage}
+                                                             dispatch={props.dispatch}/>}/>
+                                <Route path='/dialogs'
+                                       render={() => <Dialogs messagesPage={props.state.messagesPage}/>}/>
+                            </Item>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Container>
         </div>
-
     );
 }
 

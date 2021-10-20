@@ -1,13 +1,21 @@
-import s from './Header.module.scss'
-import React from "react";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
-export function Header() {
-    const logo: string = 'SOCIAL NETWORK'
+export default function Header() {
     return (
-        <header className={s.header}>
-            <div className={s.headerItem}>
-                <span>{logo}</span>
-            </div>
-        </header>
-    )
+        <Box sx={{ flexGrow: 1, mb: 2 }}>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        SOCIAL NETWORK
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+        </Box>
+    );
 }

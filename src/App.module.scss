@@ -1,20 +1,5 @@
 .app {
-    width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-areas:
-            'h h'
-            'n c';
-    grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
-    grid-gap: 15px;
 
-    .appContent {
-        grid-area: c;
-        background-color: white;
-        border-radius: 5px 5px 5px 5px;
-        margin-bottom: 15px;
-    }
 }
 
 
