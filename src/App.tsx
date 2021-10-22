@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
-import { MyPage } from './components/Profile/MyPage';
+import {Profile} from './components/Profile/Profile';
 
 const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -29,26 +29,25 @@ function App(props: AppType) {
     return (
         <div className={s.app}>
             <Header/>
-            <Container maxWidth="lg">
-                <Box sx={{flexGrow: 1}}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={3}>
-                            <Item>
-                                <Navbar/>
-                            </Item>
-                        </Grid>
-                        <Grid item xs={9}>
-                            <Item>
-                                <Route path='/mypage'
-                                       render={() => <MyPage profilePage={props.state.profilePage}
-                                                             dispatch={props.dispatch}/>}/>
-                                <Route path='/dialogs'
-                                       render={() => <Dialogs messagesPage={props.state.messagesPage}
-                                                              dispatch={props.dispatch}/>}/>
-                            </Item>
-                        </Grid>
+            <Container fixed maxWidth="lg">
+                <Grid container spacing={2}>
+                    <Grid item xs={3}>
+                        <Item>
+                            <Navbar/>
+                        </Item>
                     </Grid>
-                </Box>
+                    <Grid item xs={9}>
+                        <Item>
+                            <Route path='/mypage'
+                                   render={() => <Profile profilePage={props.state.profilePage}
+                                                          dispatch={props.dispatch}/>}/>
+                            <Route path='/dialogs'
+                                   render={() => <Dialogs messagesPage={props.state.messagesPage}
+                                                          dispatch={props.dispatch}/>}/>
+                        </Item>
+                    </Grid>
+                </Grid>
+
             </Container>
         </div>
     );
