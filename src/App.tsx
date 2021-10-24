@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import {Profile} from './components/Profile/Profile';
+import {Routes} from "./Routes";
 
 const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -38,12 +39,9 @@ function App(props: AppType) {
                     </Grid>
                     <Grid item xs={9}>
                         <Item>
-                            <Route path='/mypage'
-                                   render={() => <Profile profilePage={props.state.profilePage}
-                                                          dispatch={props.dispatch}/>}/>
-                            <Route path='/dialogs'
-                                   render={() => <Dialogs messagesPage={props.state.messagesPage}
-                                                          dispatch={props.dispatch}/>}/>
+                            <Routes dispatch={props.dispatch}
+                                    profilePage={props.state.profilePage}
+                                    messagesPage={props.state.messagesPage}/>
                         </Item>
                     </Grid>
                 </Grid>
