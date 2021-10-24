@@ -1,18 +1,14 @@
 import React from 'react'
 import './App.module.scss'
 import s from './App.module.scss'
-import Dialogs from './components/Dialogs/Dialogs';
 import {Navbar} from "./components/Navbar/Navbar";
-import {Route} from "react-router-dom";
-import {ActionsTypes, StateType} from "./redux/state";
 import {styled} from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
-import {Profile} from './components/Profile/Profile';
 import {Routes} from "./Routes";
+import { ActionsTypes, StateType } from './redux/redux-store';
 
 const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -41,7 +37,7 @@ function App(props: AppType) {
                         <Item>
                             <Routes dispatch={props.dispatch}
                                     profilePage={props.state.profilePage}
-                                    messagesPage={props.state.messagesPage}/>
+                                    dialogsPage={props.state.dialogsPage}/>
                         </Item>
                     </Grid>
                 </Grid>

@@ -7,10 +7,11 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
-import {ActionsTypes, AddPostAC, SendMessageAC} from "../../redux/state";
+import { SendMessage } from '../../redux/dialogs-reducer';
+import { ActionsTypes } from '../../redux/redux-store';
 
 type DialogsType = {
-    messagesPage: {
+    dialogsPage: {
         messages: Array<MessageType>
         dialogs: Array<DialogItemType>
     }
@@ -19,8 +20,8 @@ type DialogsType = {
 
 function Dialogs(props: DialogsType) {
 
-    const dialogsElements = props.messagesPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    const messagesElements = props.messagesPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
+    const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    const messagesElements = props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
     const [value, setValue] = useState<string>('');
 
@@ -30,7 +31,7 @@ function Dialogs(props: DialogsType) {
 
     const sendMessage = () => {
         if (value.trim()) {
-            props.dispatch(SendMessageAC(value.trim()))
+            props.dispatch(SendMessage(value.trim()))
             setValue('')
         }
     }

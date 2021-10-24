@@ -1,12 +1,13 @@
 import Post, {PostType} from "./Post/Post";
 import s from './MyPosts.module.scss'
-import {useState, KeyboardEvent, createRef, ChangeEvent} from "react";
-import {ActionsTypes, AddPostAC} from "../../../redux/state";
+import {useState, KeyboardEvent, ChangeEvent} from "react";
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import {AddPost} from "../../../redux/profile-reducer";
+import { ActionsTypes } from "../../../redux/redux-store";
 
 type MyPostType = {
     posts: Array<PostType>
@@ -23,7 +24,7 @@ function MyPosts(props: MyPostType) {
 
     const addPost = () => {
         if (value.trim()) {
-            props.dispatch(AddPostAC(value.trim()))
+            props.dispatch(AddPost(value.trim()))
             setValue('')
         }
     }

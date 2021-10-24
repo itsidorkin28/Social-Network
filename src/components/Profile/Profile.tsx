@@ -2,8 +2,8 @@ import s from './Profile.module.scss'
 import React from "react";
 import MyPosts from './MyPosts/MyPosts';
 import {PostType} from "./MyPosts/Post/Post";
-import {ActionsTypes} from "../../redux/state";
 import UserDescription from './UserDescription/UserDescription';
+import { ActionsTypes } from '../../redux/redux-store';
 
 type Profile = {
     profilePage: {
