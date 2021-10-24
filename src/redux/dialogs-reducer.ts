@@ -1,8 +1,8 @@
-
 import {MessageType} from "../components/Dialogs/Message/Message";
 import {v1} from "uuid";
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
-import { ActionsTypes } from "./redux-store";
+
+
 
 const SEND_MESSAGE = 'SEND-MESSAGE'
 
@@ -21,6 +21,8 @@ const initialState = {
         {id: v1(), message: 'How are you?'}
     ]
 }
+
+type ActionsTypes = ReturnType<typeof SendMessage>
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {

@@ -1,6 +1,5 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {v1} from "uuid";
-import { ActionsTypes } from "./redux-store";
 
 const ADD_POST = 'ADD-POST'
 
@@ -15,6 +14,8 @@ const initialState = {
     ]
 }
 
+type ActionsTypes = ReturnType<typeof AddPost>
+
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
@@ -25,6 +26,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return state
     }
 }
+
 
 export const AddPost = (postText: string) => {
     return {

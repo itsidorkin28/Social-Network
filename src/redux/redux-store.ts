@@ -1,12 +1,6 @@
 import {combineReducers, createStore} from "redux";
-import {AddPost, ProfilePageType, profileReducer} from "./profile-reducer";
-import {DialogsPageType, dialogsReducer, SendMessage} from "./dialogs-reducer";
-
-export type ActionsTypes = ReturnType<typeof AddPost> | ReturnType<typeof SendMessage>
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-}
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 
 const reducers = combineReducers({
     profilePage: profileReducer,

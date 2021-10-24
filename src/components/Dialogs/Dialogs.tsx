@@ -7,18 +7,16 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
-import { SendMessage } from '../../redux/dialogs-reducer';
-import { ActionsTypes } from '../../redux/redux-store';
 
 type DialogsType = {
     dialogsPage: {
         messages: Array<MessageType>
         dialogs: Array<DialogItemType>
     }
-    dispatch: (action: ActionsTypes) => void
+    sendMessage: (value: string) => void
 }
 
-function Dialogs(props: DialogsType) {
+export const Dialogs = (props: DialogsType) => {
 
     const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
     const messagesElements = props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
@@ -30,8 +28,9 @@ function Dialogs(props: DialogsType) {
     };
 
     const sendMessage = () => {
-        if (value.trim()) {
-            props.dispatch(SendMessage(value.trim()))
+        const newMessage = value.trim()
+        if (newMessage) {
+            props.sendMessage(newMessage)
             setValue('')
         }
     }
@@ -58,7 +57,7 @@ function Dialogs(props: DialogsType) {
                         autoComplete="off">
                         <TextField
                             id="outlined-multiline-flexible"
-                            label="What's new?"
+                            label="Type message"
                             multiline
                             maxRows={4}
                             value={value}
@@ -76,5 +75,3 @@ function Dialogs(props: DialogsType) {
         </div>
     )
 }
-
-export default Dialogs

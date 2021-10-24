@@ -2,19 +2,16 @@ import Post, {PostType} from "./Post/Post";
 import s from './MyPosts.module.scss'
 import {useState, KeyboardEvent, ChangeEvent} from "react";
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import {AddPost} from "../../../redux/profile-reducer";
-import { ActionsTypes } from "../../../redux/redux-store";
 
 type MyPostType = {
     posts: Array<PostType>
-    dispatch: (action: ActionsTypes) => void
+    addPost: (value: string) => void
 }
 
-function MyPosts(props: MyPostType) {
+export const MyPosts = (props: MyPostType) => {
     const postsElements = props.posts.map(m => <Post key={m.id} id={m.id} post={m.post} likesCount={m.likesCount}/>)
     const [value, setValue] = useState<string>('');
 
@@ -23,8 +20,9 @@ function MyPosts(props: MyPostType) {
     };
 
     const addPost = () => {
-        if (value.trim()) {
-            props.dispatch(AddPost(value.trim()))
+        const newPost = value.trim()
+        if (newPost) {
+            props.addPost(newPost)
             setValue('')
         }
     }
@@ -36,7 +34,7 @@ function MyPosts(props: MyPostType) {
     return (
         <div className={s.myPosts}>
             <div>
-                <h3>My posts</h3>
+                <h3>All posts</h3>
             </div>
             <div>
                 <Box
@@ -57,8 +55,8 @@ function MyPosts(props: MyPostType) {
 
                 </Box>
                 <Stack direction="row" spacing={1}>
-                    <Button variant="contained" endIcon={<SendIcon/>} onClick={addPost}>
-                        Send
+                    <Button variant="contained" onClick={addPost}>
+                        Add post
                     </Button>
                 </Stack>
             </div>
@@ -68,5 +66,3 @@ function MyPosts(props: MyPostType) {
         </div>
     )
 }
-
-export default MyPosts

@@ -1,15 +1,10 @@
 import s from './Profile.module.scss'
 import React from "react";
-import MyPosts from './MyPosts/MyPosts';
-import {PostType} from "./MyPosts/Post/Post";
 import UserDescription from './UserDescription/UserDescription';
-import { ActionsTypes } from '../../redux/redux-store';
+import { MyPostsContainer } from './MyPosts/MyPostsContainer';
 
 type Profile = {
-    profilePage: {
-        posts: Array<PostType>
-    }
-    dispatch: (action: ActionsTypes) => void
+    store: any
 }
 
 export function Profile(props: Profile) {
@@ -19,7 +14,7 @@ export function Profile(props: Profile) {
                 <UserDescription/>
             </div>
             <div className={s.myPosts}>
-                <MyPosts posts={props.profilePage.posts} dispatch={props.dispatch}/>
+                <MyPostsContainer store={props.store}/>
             </div>
         </div>
     )
