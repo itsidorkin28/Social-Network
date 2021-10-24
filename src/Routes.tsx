@@ -3,9 +3,10 @@ import {Route, Switch} from 'react-router-dom';
 import {Profile} from "./components/Profile/Profile";
 import {Error404} from './Error404';
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {StoreType} from "./redux/redux-store";
 
 type RoutesType = {
-    store: any
+    store: StoreType
 }
 
 const path = {

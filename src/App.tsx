@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import {Routes} from "./Routes";
+import {StoreType} from "./redux/redux-store";
 
 const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -17,7 +18,7 @@ const Item = styled(Paper)(({theme}) => ({
 }));
 
 type AppType = {
-    store: any
+    store: StoreType
 }
 
 function App(props: AppType) {

@@ -1,9 +1,10 @@
 import React from 'react'
 import { SendMessage } from '../../redux/dialogs-reducer';
 import {Dialogs} from "./Dialogs";
+import {StoreType} from "../../redux/redux-store";
 
 type DialogsContainerType = {
-    store: any
+    store: StoreType
 }
 
 export const DialogsContainer = (props: DialogsContainerType) => {

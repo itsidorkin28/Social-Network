@@ -1,8 +1,9 @@
 import {AddPost} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
+import {StoreType} from "../../../redux/redux-store";
 
 type MyPostContainerType = {
-    store: any
+    store: StoreType
 }
 
 export const MyPostsContainer = (props: MyPostContainerType) => {
