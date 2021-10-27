@@ -4,6 +4,7 @@ import UserDescription from './UserDescription/UserDescription';
 import { MyPostsContainer } from './MyPosts/MyPostsContainer';
 
 
+
 export function Profile() {
     return (
         <div className={s.myPage}>

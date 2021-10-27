@@ -13,14 +13,14 @@ type MyPostType = {
         postText: string
     }
     addPost: (value: string) => void
-    changePostText: (value: string) => void
+    changePost: (value: string) => void
 
 }
 
 export const MyPosts = (props: MyPostType) => {
     const postsElements = props.profilePage.posts.map(m => <Post key={m.id} id={m.id} post={m.post} likesCount={m.likesCount}/>)
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changePostText(e.currentTarget.value)
+        props.changePost(e.currentTarget.value)
     };
 
     const addPost = () => {
