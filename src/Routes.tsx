@@ -5,10 +5,6 @@ import {Error404} from './Error404';
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {StoreType} from "./redux/redux-store";
 
-type RoutesType = {
-    store: StoreType
-}
-
 const path = {
     default: '/',
     socialNetwork: '/social-network',
@@ -16,18 +12,18 @@ const path = {
     dialogs: '/dialogs'
 }
 
-export const Routes = (props: RoutesType) => {
+export const Routes = () => {
     return (
         <div>
             <Switch>
                 <Route path={path.default} exact
-                       render={() => <Profile store={props.store}/>}/>
+                       render={() => <Profile />}/>
                 <Route path={path.socialNetwork} exact
-                       render={() => <Profile store={props.store}/>}/>
+                       render={() => <Profile />}/>
                 <Route path={path.myPage}
-                       render={() => <Profile store={props.store}/>}/>
+                       render={() => <Profile />}/>
                 <Route path={path.dialogs}
-                       render={() => <DialogsContainer store={props.store}/>}/>
+                       render={() => <DialogsContainer />}/>
                 <Route render={() => <Error404/>}/>
             </Switch>
         </div>

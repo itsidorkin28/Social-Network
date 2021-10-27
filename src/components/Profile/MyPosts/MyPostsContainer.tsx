@@ -1,20 +1,29 @@
-import {AddPost} from "../../../redux/profile-reducer";
+import {AddPostAC, ChangePostAC} from "../../../redux/profile-reducer";
+import {StoreContext} from "../../../StoreContext";
 import {MyPosts} from "./MyPosts";
-import {StoreType} from "../../../redux/redux-store";
 
-type MyPostContainerType = {
-    store: StoreType
-}
 
-export const MyPostsContainer = (props: MyPostContainerType) => {
-    const state = props.store.getState()
-    const addPost = (value: string) => {
-        const action = AddPost(value)
-        props.store.dispatch(action)
-    }
-
+export const MyPostsContainer = () => {
     return (
-        <MyPosts addPost={addPost} posts={state.profilePage.posts}/>
+        <StoreContext.Consumer>
+            {store => {
+                const state = store.getState()
+                const addPost = (value: string) => {
+                    const action = AddPostAC(value)
+                    store.dispatch(action)
+                }
+                const changePost = (value: string) => {
+                    const action = ChangePostAC(value)
+                    store.dispatch(action)
+                }
+                return (
+                    <MyPosts addPost={addPost}
+                             profilePage={state.profilePage}
+                             changePostText={changePost}/>
+                )
+            }}
+        </StoreContext.Consumer>
+
     )
 }
 

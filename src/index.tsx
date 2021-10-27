@@ -1,17 +1,20 @@
 import React from 'react'
 import './index.scss'
-import {store} from "./redux/redux-store";
+import {store, StoreType} from "./redux/redux-store";
 import ReactDOM from 'react-dom'
 import './index.scss'
-import App from './App'
+import {App} from './App'
 import reportWebVitals from './reportWebVitals'
 import {BrowserRouter} from "react-router-dom"
+import {Provider} from './StoreContext';
 
 
-const rerenderEntireTree = (store: any) => {
+const rerenderEntireTree = (store: StoreType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App store={store}/>
+            <Provider store={store}>
+                <App />
+            </Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );

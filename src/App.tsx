@@ -8,7 +8,6 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import {Routes} from "./Routes";
-import {StoreType} from "./redux/redux-store";
 
 const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -17,11 +16,8 @@ const Item = styled(Paper)(({theme}) => ({
     color: theme.palette.text.secondary,
 }));
 
-type AppType = {
-    store: StoreType
-}
 
-function App(props: AppType) {
+export const App = () => {
     return (
         <div className={s.app}>
             <Header/>
@@ -34,14 +30,13 @@ function App(props: AppType) {
                     </Grid>
                     <Grid item xs={9}>
                         <Item>
-                            <Routes store={props.store}/>
+                            <Routes />
                         </Item>
                     </Grid>
                 </Grid>
-
             </Container>
         </div>
     );
 }
 
-export default App;
+

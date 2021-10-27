@@ -1,32 +1,35 @@
 import Post, {PostType} from "./Post/Post";
 import s from './MyPosts.module.scss'
-import {useState, KeyboardEvent, ChangeEvent} from "react";
+import {KeyboardEvent, ChangeEvent} from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import React from "react";
 
 type MyPostType = {
-    posts: Array<PostType>
+    profilePage: {
+        posts: Array<PostType>
+        postText: string
+    }
     addPost: (value: string) => void
+    changePostText: (value: string) => void
+
 }
 
 export const MyPosts = (props: MyPostType) => {
-    const postsElements = props.posts.map(m => <Post key={m.id} id={m.id} post={m.post} likesCount={m.likesCount}/>)
-    const [value, setValue] = useState<string>('');
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value);
+    const postsElements = props.profilePage.posts.map(m => <Post key={m.id} id={m.id} post={m.post} likesCount={m.likesCount}/>)
+    const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.changePostText(e.currentTarget.value)
     };
 
     const addPost = () => {
-        const newPost = value.trim()
+        const newPost = props.profilePage.postText.trim()
         if (newPost) {
             props.addPost(newPost)
-            setValue('')
         }
     }
-    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    const keyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.ctrlKey && e.key === 'Enter') {
             addPost()
         }
@@ -49,9 +52,9 @@ export const MyPosts = (props: MyPostType) => {
                         label="What's new?"
                         multiline
                         maxRows={4}
-                        value={value}
-                        onChange={handleChange}
-                        onKeyPress={handleKeyPress}/>
+                        value={props.profilePage.postText}
+                        onChange={changeHandler}
+                        onKeyPress={keyPressHandler}/>
 
                 </Box>
                 <Stack direction="row" spacing={1}>
