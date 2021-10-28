@@ -1,4 +1,4 @@
-import Post, {PostType} from "./Post/Post";
+import Post from "./Post/Post";
 import s from './MyPosts.module.scss'
 import {KeyboardEvent, ChangeEvent} from "react";
 import Button from '@mui/material/Button';
@@ -6,12 +6,10 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import React from "react";
+import {ProfilePageType} from "../../../redux/profile-reducer";
 
 type MyPostType = {
-    profilePage: {
-        posts: Array<PostType>
-        postText: string
-    }
+    profilePage: ProfilePageType
     addPost: (value: string) => void
     changePost: (value: string) => void
 

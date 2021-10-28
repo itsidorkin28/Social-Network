@@ -1,19 +1,16 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
+import React, {ChangeEvent, KeyboardEvent} from 'react'
 import s from './Dialogs.module.scss'
-import {DialogItem, DialogItemType} from "./DialogItem/DialogItem";
-import {Message, MessageType} from "./Message/Message";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {Message} from "./Message/Message";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import {DialogsPageType} from "../../redux/dialogs-reducer";
 
 type DialogsType = {
-    dialogsPage: {
-        messages: Array<MessageType>
-        dialogs: Array<DialogItemType>
-        messageText: string
-    }
+    dialogsPage: DialogsPageType
     sendMessage: (value: string) => void
     changeMessage: (value: string) => void
 }

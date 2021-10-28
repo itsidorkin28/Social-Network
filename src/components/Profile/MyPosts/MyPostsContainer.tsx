@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import {AddPostAC, ChangePostAC, ProfilePageType} from "../../../redux/profile-reducer";
+import {addPostAC, changePostAC, ProfilePageType} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {StateType} from "../../../redux/redux-store";
 import { Dispatch } from 'redux';
@@ -20,11 +20,11 @@ type MapDispatchToPropsType = {
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         changePost: (value: string) => {
-            const action = ChangePostAC(value)
+            const action = changePostAC(value)
             dispatch(action)
         },
         addPost: (value: string) => {
-            const action = AddPostAC(value)
+            const action = addPostAC(value)
             dispatch(action)
         }
     }

@@ -15,6 +15,11 @@ export function Navbar() {
                     Messages
                 </NavLink>
             </div>
+            <div>
+                <NavLink to='/users' activeClassName={s.active}>
+                    Find Users
+                </NavLink>
+            </div>
         </nav>
     )
 }

@@ -1,0 +1,12 @@
+.users {
+    border: 1px solid #ebe8e8;
+    color: black;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    div {
+        margin: 3px;
+    }
+}

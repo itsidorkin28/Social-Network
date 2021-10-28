@@ -1,9 +1,6 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {v1} from "uuid";
 
-const ADD_POST: string = 'ADD-POST'
-const CHANGE_POST_TEXT: string = 'CHANGE-POST-TEXT'
-
 export type ProfilePageType = {
     posts: Array<PostType>,
     postText: string
@@ -21,28 +18,28 @@ export type ProfileActionsTypes = AddPostACType | ChangePostACType
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsTypes): ProfilePageType => {
     switch (action.type) {
-        case ADD_POST:
+        case 'ADD-POST':
             const newPost: PostType = {id: v1(), post: action.postText, likesCount: 0}
             return {...state, posts: [newPost, ...state.posts], postText: ''}
-        case CHANGE_POST_TEXT:
+        case 'CHANGE-POST-TEXT':
             return {...state, postText: action.postText}
         default:
             return state
     }
 }
 
-type AddPostACType = ReturnType<typeof AddPostAC>
-export const AddPostAC = (postText: string) => {
+type AddPostACType = ReturnType<typeof addPostAC>
+export const addPostAC = (postText: string) => {
     return {
-        type: ADD_POST,
+        type: 'ADD-POST',
         postText
     } as const
 }
 
-export type ChangePostACType = ReturnType<typeof ChangePostAC>
-export const ChangePostAC = (postText: string) => {
+export type ChangePostACType = ReturnType<typeof changePostAC>
+export const changePostAC = (postText: string) => {
     return {
-        type: CHANGE_POST_TEXT,
+        type: 'CHANGE-POST-TEXT',
         postText
     } as const
 }

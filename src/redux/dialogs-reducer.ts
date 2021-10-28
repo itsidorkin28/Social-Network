@@ -2,12 +2,6 @@ import {MessageType} from "../components/Dialogs/Message/Message";
 import {v1} from "uuid";
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
 
-
-
-const SEND_MESSAGE = 'SEND-MESSAGE'
-const CHANGE_MESSAGE_TEXT: string = 'CHANGE-MESSAGE-TEXT'
-
-
 export type DialogsPageType = {
     dialogs: Array<DialogItemType>
     messages: Array<MessageType>
@@ -29,28 +23,28 @@ export type DialogsActionsTypes = SendMessageACType | ChangeMessageTextACType
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsTypes): DialogsPageType => {
     switch (action.type) {
-        case SEND_MESSAGE:
+        case 'SEND-MESSAGE':
             const newMessage: MessageType = {id: v1(), message: action.messageText}
             return {...state, messages: [...state.messages, newMessage], messageText: ''}
-        case CHANGE_MESSAGE_TEXT:
+        case 'CHANGE-MESSAGE-TEXT':
             return {...state, messageText: action.messageText}
         default:
             return state
     }
 }
 
-type SendMessageACType = ReturnType<typeof SendMessageAC>
-export const SendMessageAC = (messageText: string) => {
+type SendMessageACType = ReturnType<typeof sendMessageAC>
+export const sendMessageAC = (messageText: string) => {
     return {
-        type: SEND_MESSAGE,
+        type: 'SEND-MESSAGE',
         messageText
     } as const
 }
 
-type ChangeMessageTextACType = ReturnType<typeof ChangeMessageAC>
-export const ChangeMessageAC = (messageText: string) => {
+type ChangeMessageTextACType = ReturnType<typeof changeMessageAC>
+export const changeMessageAC = (messageText: string) => {
     return {
-        type: CHANGE_MESSAGE_TEXT,
+        type: 'CHANGE-MESSAGE-TEXT',
         messageText
     } as const
 }
