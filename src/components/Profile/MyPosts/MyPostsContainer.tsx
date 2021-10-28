@@ -1,15 +1,23 @@
-import React from 'react'
 import { connect } from "react-redux";
-import {AddPostAC, ChangePostAC, ProfileActionsTypes} from "../../../redux/profile-reducer";
+import {AddPostAC, ChangePostAC, ProfilePageType} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {StateType} from "../../../redux/redux-store";
+import { Dispatch } from 'redux';
 
-const mapStateToProps = (state: StateType) => {
+type MapStateToPropsType = {
+    profilePage: ProfilePageType
+}
+const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
         profilePage: state.profilePage
     }
 }
-const mapDispatchToProps = (dispatch: (action: ProfileActionsTypes) => void) => {
+
+type MapDispatchToPropsType = {
+    changePost: (value: string) => void
+    addPost: (value: string) => void
+}
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         changePost: (value: string) => {
             const action = ChangePostAC(value)

@@ -27,7 +27,7 @@ const initialState = {
 
 export type DialogsActionsTypes = SendMessageACType | ChangeMessageTextACType
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsTypes) => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsTypes): DialogsPageType => {
     switch (action.type) {
         case SEND_MESSAGE:
             const newMessage: MessageType = {id: v1(), message: action.messageText}

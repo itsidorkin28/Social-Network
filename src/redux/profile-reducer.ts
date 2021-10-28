@@ -19,7 +19,7 @@ const initialState = {
 
 export type ProfileActionsTypes = AddPostACType | ChangePostACType
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsTypes) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostType = {id: v1(), post: action.postText, likesCount: 0}
