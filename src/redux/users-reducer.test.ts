@@ -1,23 +1,18 @@
-import {v1} from "uuid";
 import {UsersPageType, usersReducer} from "./users-reducer";
 
 let initialState: UsersPageType = {
     usersList: [
         {
-            id: v1(),
+            id: 1,
             followed: true,
-            fullName: 'Alexander',
-            status: 'React Dev',
-            location: {city: 'Tula', county: 'Russia'},
-            avatar: 'https://i.pinimg.com/originals/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64.jpg'
+            name: 'Alexander',
+            status: 'React Dev'
         },
         {
-            id: v1(),
+            id: 2,
             followed: false,
-            fullName: 'Alena',
-            status: 'Lashmaker',
-            location: {city: 'Tula', county: 'Russia'},
-            avatar: 'https://i.pinimg.com/originals/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64.jpg'
+            name: 'Alena',
+            status: 'Lashmaker'
         }
     ]
 }
@@ -26,20 +21,16 @@ beforeEach(() => {
     initialState = {
         usersList: [
             {
-                id: v1(),
+                id: 1,
                 followed: true,
-                fullName: 'Alexander',
-                status: 'React Dev',
-                location: {city: 'Tula', county: 'Russia'},
-                avatar: 'https://i.pinimg.com/originals/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64.jpg'
+                name: 'Alexander',
+                status: 'React Dev'
             },
             {
-                id: v1(),
+                id: 2,
                 followed: false,
-                fullName: 'Alena',
-                status: 'Lashmaker',
-                location: {city: 'Tula', county: 'Russia'},
-                avatar: 'https://i.pinimg.com/originals/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64.jpg'
+                name: 'Alena',
+                status: 'Lashmaker'
             }
         ]
     }
@@ -75,12 +66,10 @@ test('correct set-users', () => {
         type: 'SET-USERS',
         users: [
             {
-                id: v1(),
+                id: 3,
                 followed: false,
-                fullName: 'Sasha',
-                status: 'IT',
-                location: {city: 'Moscow', county: 'Russia'},
-                avatar: 'https://i.pinimg.com/originals/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64.jpg'
+                name: 'Sasha',
+                status: 'IT'
             }
         ]
     })

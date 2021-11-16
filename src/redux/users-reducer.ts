@@ -1,13 +1,18 @@
 export type UserType = {
-    id: string
+    name: string
+    id: number
     followed: boolean
-    fullName: string
-    status: string
-    location: {
+    status?: string
+    uniqueUrlName?: string
+    photos?: {
+        small: string
+        large: string
+    }
+    location?: {
         city: string
-        county: string
-    },
-    avatar: string
+        country: string
+    }
+
 }
 
 export type UsersPageType = {
@@ -34,7 +39,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: UsersA
 }
 
 type FollowACType = ReturnType<typeof followAC>
-export const followAC = (id: string) => {
+export const followAC = (id: number) => {
     return {
         type: 'FOLLOW',
         id
@@ -42,7 +47,7 @@ export const followAC = (id: string) => {
 }
 
 type UnfollowACType = ReturnType<typeof unfollowAC>
-export const unfollowAC = (id: string) => {
+export const unfollowAC = (id: number) => {
     return {
         type: 'UNFOLLOW',
         id
