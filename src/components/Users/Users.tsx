@@ -1,113 +1,80 @@
-import {Avatar, Button, Grid} from '@mui/material';
+import {Avatar, Button, ButtonGroup, Pagination} from '@mui/material';
 import React from 'react';
 import {UsersPageType, UserType} from "../../redux/users-reducer";
 import s from './Users.module.scss'
 import axios from 'axios';
 
 type UsersType = {
-    usersPage: UsersPageType
+    usersList: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     follow: (id: number) => void
     unfollow: (id: number) => void
     setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
 }
 
 export class Users extends React.Component<UsersType, UsersPageType> {
     constructor(props: UsersType) {
         super(props);
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+
+    }
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    followHandler = (id: number) => this.props.follow(id)
+    unFollowHandler = (id: number) => this.props.unfollow(id)
+    setCurrentPage = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
     }
-    followHandler = (id: number) => this.props.follow(id)
-    unFollowHandler = (id: number) => this.props.unfollow(id)
+
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
         return (
             <div>
-                <Grid container>
-                    {this.props.usersPage.usersList.map(u => {
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}>
+                    <Pagination count={pagesCount} color="primary" onChange={(e, value) => this.setCurrentPage(value)}/>
+                </div>
+                <div className={s.users}>
+                    {this.props.usersList.map(u => {
                         return (
-                            <Grid item>
-                                <div key={u.id} className={s.users}>
-
-                                    <div>
-                                        <Avatar alt={u.name} src={u.photos?.small} sx={{width: 100, height: 100}}/>
-                                    </div>
-                                    <div>
-                                        {u.followed
-                                            ? <Button onClick={() => this.unFollowHandler(u.id)} variant="contained"
-                                                      color="error"
-                                                      size='small'>Unfollow</Button>
-                                            : <Button onClick={() => this.followHandler(u.id)} variant="contained"
-                                                      color="success"
-                                                      size='small'>Follow</Button>}
-                                    </div>
-                                    <div>
-                                        <span>{u.name}</span>
-                                    </div>
-                                    <div>
-                                        <span>{u.status}</span>
-                                    </div>
-                                    <div>
-                                        <span>{'${u.location?.country}, ${u.location?.city}'}</span>
-                                    </div>
+                            <div key={u.id} className={s.user}>
+                                <div>
+                                    <Avatar alt={u.name} src={u.photos?.small} sx={{width: 100, height: 100}}/>
                                 </div>
-                            </Grid>
+                                <div>
+                                    {u.followed
+                                        ? <Button onClick={() => this.unFollowHandler(u.id)} variant="contained"
+                                                  color="error"
+                                                  size='small'>Unfollow</Button>
+                                        : <Button onClick={() => this.followHandler(u.id)} variant="contained"
+                                                  color="success"
+                                                  size='small'>Follow</Button>}
+                                </div>
+                                <span>{u.name}</span>
+                                <span>{u.status}</span>
+                                <span>{'${u.location?.country}, ${u.location?.city}'}</span>
+                            </div>
                         )
                     })}
-                </Grid>
+                </div>
             </div>
         );
     }
 }
-
-// export const Users = (props: UsersType) => {
-//     const followHandler = (id: number) => props.follow(id)
-//     const unFollowHandler = (id: number) => props.unfollow(id)
-//     const getUsers = () => {
-//         if (props.usersPage.usersList.length === 0) {
-//             axios.get('https://social-network.samuraijs.com/api/1.0/users')
-//                 .then(response => {
-//                     props.setUsers(response.data.items)
-//                 })
-//         }
-//     }
-//
-//     const usersElements = props.usersPage.usersList.map(u => {
-//         return (
-//             <Grid item>
-//                 <div key={u.id} className={s.users}>
-//
-//                     <div>
-//                         <Avatar alt={u.name} src={u.photos?.small} sx={{width: 100, height: 100}}/>
-//                     </div>
-//                     <div>
-//                         {u.followed
-//                             ? <Button onClick={() => unFollowHandler(u.id)} variant="contained" color="error"
-//                                       size='small'>Unfollow</Button>
-//                             : <Button onClick={() => followHandler(u.id)} variant="contained" color="success"
-//                                       size='small'>Follow</Button>}
-//                     </div>
-//                     <div>
-//                         <span>{u.name}</span>
-//                     </div>
-//                     <div>
-//                         <span>{u.status}</span>
-//                     </div>
-//                     <div>
-//                         <span>{'${u.location?.country}, ${u.location?.city}'}</span>
-//                     </div>
-//                 </div>
-//             </Grid>
-//         )
-//     })
-//     return (
-//         <div>
-//             <Button onClick={getUsers} variant={'outlined'}>Get users</Button>
-//             <Grid container>
-//                 {usersElements}
-//             </Grid>
-//         </div>
-//     );
-// };
-

@@ -1,46 +1,32 @@
 import {UsersPageType, usersReducer} from "./users-reducer";
 
-let initialState: UsersPageType = {
-    usersList: [
-        {
+let usersPage: UsersPageType
+
+beforeEach(() => {
+    usersPage = {
+        usersList: [{
             id: 1,
             followed: true,
             name: 'Alexander',
             status: 'React Dev'
         },
-        {
-            id: 2,
-            followed: false,
-            name: 'Alena',
-            status: 'Lashmaker'
-        }
-    ]
-}
-
-beforeEach(() => {
-    initialState = {
-        usersList: [
-            {
-                id: 1,
-                followed: true,
-                name: 'Alexander',
-                status: 'React Dev'
-            },
             {
                 id: 2,
                 followed: false,
                 name: 'Alena',
                 status: 'Lashmaker'
-            }
-        ]
+            }],
+        pageSize: 5,
+        totalUsersCount: 20,
+        currentPage: 1,
     }
 })
 
 test('user should follow', () => {
 
-    const endState = usersReducer(initialState, {
+    const endState = usersReducer(usersPage, {
         type: 'FOLLOW',
-        id: initialState.usersList[1].id
+        id: usersPage.usersList[1].id
     })
 
     expect(endState.usersList.length).toBe(2)
@@ -50,9 +36,9 @@ test('user should follow', () => {
 
 test('user should unfollow', () => {
 
-    const endState = usersReducer(initialState, {
+    const endState = usersReducer(usersPage, {
         type: 'UNFOLLOW',
-        id: initialState.usersList[0].id
+        id: usersPage.usersList[0].id
     })
 
     expect(endState.usersList.length).toBe(2)
@@ -62,7 +48,7 @@ test('user should unfollow', () => {
 
 test('correct set-users', () => {
 
-    const endState = usersReducer(initialState, {
+    const endState = usersReducer(usersPage, {
         type: 'SET-USERS',
         users: [
             {
@@ -74,6 +60,17 @@ test('correct set-users', () => {
         ]
     })
 
-    expect(endState.usersList.length).toBe(3)
-    expect(endState.usersList[2].followed).toBe(false)
+    expect(endState.usersList.length).toBe(1)
+    expect(endState.usersList[0].followed).toBe(false)
+})
+
+test('correct change page', () => {
+
+    const endState = usersReducer(usersPage, {
+        type: 'SET-CURRENT-PAGE',
+        currentPage: 2
+    })
+
+    expect(endState.usersList.length).toBe(2)
+    expect(endState.currentPage).toBe(2)
 })
