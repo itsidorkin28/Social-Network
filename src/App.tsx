@@ -2,7 +2,6 @@ import React from 'react'
 import './App.module.scss'
 import s from './App.module.scss'
 import {Navbar} from "./components/Navbar/Navbar";
-import {styled} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
