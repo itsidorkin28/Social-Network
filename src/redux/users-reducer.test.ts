@@ -19,6 +19,7 @@ beforeEach(() => {
         pageSize: 5,
         totalUsersCount: 20,
         currentPage: 1,
+        isFetching: false
     }
 })
 
@@ -73,4 +74,16 @@ test('correct change page', () => {
 
     expect(endState.usersList.length).toBe(2)
     expect(endState.currentPage).toBe(2)
+})
+
+test('toggle is fetching', () => {
+
+    const endState = usersReducer(usersPage, {
+        type: 'TOGGLE_IS_FETCHING',
+        isFetching: true
+    })
+
+    expect(endState.usersList.length).toBe(2)
+    expect(endState.currentPage).toBe(1)
+    expect(endState.isFetching).toBe(true)
 })

@@ -1,9 +1,12 @@
 .myPosts {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
     h3 {
         color: black;
+    }
+    .postForm {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
 }

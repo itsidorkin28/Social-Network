@@ -2,19 +2,10 @@
     margin-top: 10px;
     display: flex;
     flex-direction: row;
-        .postPost {
-            color: black;
-            display: flex;
-            align-items: center;
-            margin: 0 5px;
-            padding: 10px 10px;
-            border: 1px solid #ebe8e8;
-            border-radius: 5px;
-            max-width: 350px;
-        }
-        .postLikes {
-            display: flex;
-            align-items: flex-end;
-        }
+    align-items: center;
+    flex-wrap: wrap;
+    span {
+        margin-left: 5px;
+    }
 }
 

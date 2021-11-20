@@ -1,13 +1,7 @@
 import {v1} from "uuid";
 import {ProfilePageType, profileReducer} from "./profile-reducer";
 
-let initialState: ProfilePageType = {
-    posts: [
-        {id: v1(), post: 'Hello!', likesCount: 3},
-        {id: v1(), post: 'JS!', likesCount: 9}
-    ],
-    postText: ''
-}
+let initialState: ProfilePageType
 
 beforeEach(() => {
     initialState = {

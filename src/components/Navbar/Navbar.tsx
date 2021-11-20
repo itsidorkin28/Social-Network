@@ -6,8 +6,8 @@ export function Navbar() {
     return (
         <nav className={s.navbar}>
             <div>
-               <NavLink to='/mypage' activeClassName={s.active}>
-                   My Page
+               <NavLink to='/profile' activeClassName={s.active}>
+                   Profile
                </NavLink>
             </div>
             <div>

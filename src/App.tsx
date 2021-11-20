@@ -9,14 +9,6 @@ import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import {Routes} from "./Routes";
 
-const Item = styled(Paper)(({theme}) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
-
-
 export const App = () => {
     return (
         <div className={s.app}>
@@ -24,14 +16,14 @@ export const App = () => {
             <Container fixed maxWidth="lg">
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
-                        <Item>
+                        <Paper style={{padding: '15px 0'}}>
                             <Navbar/>
-                        </Item>
+                        </Paper>
                     </Grid>
                     <Grid item xs={9}>
-                        <Item>
+                        <Paper style={{padding: '15px 15px'}}>
                             <Routes />
-                        </Item>
+                        </Paper>
                     </Grid>
                 </Grid>
             </Container>

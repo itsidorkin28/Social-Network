@@ -1,17 +1,8 @@
-.myPage {
+.profile {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    .userDescription {
-        flex: 2;
-        margin-right: 10px;
-        padding: 10px;
-    }
-    .myPosts {
-        flex: 5;
-        padding: 10px;
-    }
 
 }
 
