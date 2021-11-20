@@ -13,7 +13,6 @@ export const Routes = () => {
                    render={() => <DialogsContainer/>}/>
             <Route path={'/users'}
                    render={() => <UsersContainer/>}/>
-
         </div>
     );
 };
