@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
-import {Routes} from "./Routes";
+import {AppRoutes} from "./AppRoutes";
 
 export const App = () => {
     return (
@@ -21,7 +21,7 @@ export const App = () => {
                     </Grid>
                     <Grid item xs={9}>
                         <Paper style={{padding: '15px 15px'}}>
-                            <Routes />
+                            <AppRoutes />
                         </Paper>
                     </Grid>
                 </Grid>
