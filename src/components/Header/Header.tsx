@@ -5,7 +5,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-export default function Header() {
+type HeaderType = {
+    isAuth: boolean
+    login: string
+}
+
+export const Header = React.memo(({isAuth, login}: HeaderType) => {
     return (
         <Box sx={{ flexGrow: 1, mb: 2 }}>
             <AppBar position="static">
@@ -13,9 +18,9 @@ export default function Header() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         SOCIAL NETWORK
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isAuth ? login : <Button color="inherit">Login</Button>}
                 </Toolbar>
             </AppBar>
         </Box>
-    );
-}
+    )
+})

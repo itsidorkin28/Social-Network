@@ -5,13 +5,13 @@ import {Navbar} from "./components/Navbar/Navbar";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Header from './components/Header/Header';
 import {AppRoutes} from "./AppRoutes";
+import {HeaderContainer} from "./components/Header/HeaderContainer";
 
 export const App = () => {
     return (
         <div className={s.app}>
-            <Header/>
+            <HeaderContainer/>
             <Container fixed maxWidth="lg">
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
@@ -21,7 +21,7 @@ export const App = () => {
                     </Grid>
                     <Grid item xs={9}>
                         <Paper style={{padding: '15px 15px'}}>
-                            <AppRoutes />
+                            <AppRoutes/>
                         </Paper>
                     </Grid>
                 </Grid>

@@ -8,12 +8,20 @@ export const AppRoutes = () => {
     return (
         <div>
             <Routes>
-                <Route path={'/profile/:userId?'}
+                <Route path={'/profile/:userId'}
                        element={<ProfileContainer/>}/>
                 <Route path={'/dialogs'}
                        element={<DialogsContainer/>}/>
                 <Route path={'/users'}
                        element={<UsersContainer/>}/>
+                <Route
+                    path="*"
+                    element={
+                        <main>
+                            <p>There's nothing here!</p>
+                        </main>
+                    }
+                />
             </Routes>
         </div>
     );

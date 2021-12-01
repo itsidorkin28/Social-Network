@@ -6,17 +6,17 @@ export function Navbar() {
     return (
         <nav className={s.navbar}>
             <div>
-               <NavLink to='/profile' activeClassName={s.active}>
+               <NavLink to='/profile' className={({ isActive }) => isActive ? s.active : ''}>
                    Profile
                </NavLink>
             </div>
             <div>
-                <NavLink to='/dialogs' activeClassName={s.active}>
+                <NavLink to='/dialogs' className={({ isActive }) => isActive ? s.active : ''}>
                     Messages
                 </NavLink>
             </div>
             <div>
-                <NavLink to='/users' activeClassName={s.active}>
+                <NavLink to='/users' className={({ isActive }) => isActive ? s.active : ''}>
                     Find Users
                 </NavLink>
             </div>
