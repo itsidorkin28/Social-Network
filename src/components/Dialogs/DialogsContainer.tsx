@@ -1,14 +1,14 @@
 import {connect} from 'react-redux';
 import { Dispatch } from 'redux';
 import {changeMessageAC, DialogsPageType, sendMessageAC} from '../../redux/dialogs-reducer';
-import { StateType } from '../../redux/redux-store';
+import { RootStateType } from '../../redux/redux-store';
 import {Dialogs} from "./Dialogs";
 
 type MapStateToPropsType = {
     dialogsPage: DialogsPageType
 }
 
-const mapStateToProps = (state: StateType): MapStateToPropsType => {
+const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
