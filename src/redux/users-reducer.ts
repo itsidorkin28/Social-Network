@@ -1,3 +1,6 @@
+import { Dispatch } from "redux"
+import {usersAPI} from "../api/api";
+
 export type UserType = {
     name: string
     id: number
@@ -120,5 +123,18 @@ export const setTotalUsersCount = (totalUsersCount: number) => {
         type: 'SET-TOTAL-USERS-COUNT',
         totalUsersCount,
     } as const
+}
+
+const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(response => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(response.items))
+                dispatch(setTotalUsersCount(response.totalCount))
+            })
+    }
+
 }
 

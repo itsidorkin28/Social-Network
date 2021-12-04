@@ -8,11 +8,10 @@ import axios from "axios";
 
 type UsersType = {
     usersList: Array<UserType>
-    disableButton: boolean
     isFollowing: Array<number>
 }
 
-export const Users = React.memo(({usersList, disableButton, isFollowing}: UsersType) => {
+export const Users = React.memo(({usersList, isFollowing}: UsersType) => {
     const dispatch = useDispatch()
 
     return <div>
