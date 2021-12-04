@@ -16,6 +16,8 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowing: Array<number>
+    disableButton: boolean
 }
 
 const initialState: UsersPageType = {
@@ -24,6 +26,8 @@ const initialState: UsersPageType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    isFollowing: [],
+    disableButton: false,
 }
 
 export const usersReducer = (state = initialState, action: UsersActionsTypes): UsersPageType => {
@@ -40,6 +44,13 @@ export const usersReducer = (state = initialState, action: UsersActionsTypes): U
             return {...state, totalUsersCount: action.totalUsersCount}
         case 'TOGGLE_IS_FETCHING':
             return {...state, isFetching: action.isFetching}
+        case 'TOGGLE_IS_FOLLOWING':
+            return {
+                ...state,
+                isFollowing: action.disableButton
+                    ? [...state.isFollowing, action.userID]
+                    : [...state.isFollowing.filter(id => id !== action.userID)]
+            }
         default:
             return state
     }
@@ -52,6 +63,16 @@ export type UsersActionsTypes =
     | SetCurrentPageType
     | SetTotalUsersCountType
     | ToggleIsFetchingType
+    | ToggleIsFollowingType
+
+type ToggleIsFollowingType = ReturnType<typeof toggleIsFollowing>
+export const toggleIsFollowing = (disableButton: boolean, userID: number) => {
+    return {
+        type: 'TOGGLE_IS_FOLLOWING',
+        disableButton,
+        userID,
+    } as const
+}
 
 type ToggleIsFetchingType = ReturnType<typeof toggleIsFetching>
 export const toggleIsFetching = (isFetching: boolean) => {

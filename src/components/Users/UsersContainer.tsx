@@ -15,6 +15,8 @@ import {usersAPI} from "../../api/api";
 export const UsersContainer = React.memo(() => {
     const dispatch = useDispatch()
     const isFetching = useSelector<RootStateType, boolean>(state => state.usersPage.isFetching)
+    const disableButton = useSelector<RootStateType, boolean>(state => state.usersPage.disableButton)
+    const isFollowing = useSelector<RootStateType, Array<number>>(state => state.usersPage.isFollowing)
     const usersList = useSelector<RootStateType, Array<UserType>>(state => state.usersPage.usersList)
     const pageSize = useSelector<RootStateType, number>(state => state.usersPage.pageSize)
     const totalUsersCount = useSelector<RootStateType, number>(state => state.usersPage.totalUsersCount)
@@ -51,7 +53,7 @@ export const UsersContainer = React.memo(() => {
             <Pagination count={pagesCount} color="primary" onChange={(e, value) => changeCurrentPage(value)}/>
         </div>
         {isFetching ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
-            <Users usersList={usersList}/>}
+            <Users usersList={usersList} disableButton={disableButton} isFollowing={isFollowing}/>}
     </div>
 
 })
