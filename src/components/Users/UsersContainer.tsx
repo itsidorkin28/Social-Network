@@ -1,15 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {
-    setCurrentPage,
-    setTotalUsersCount,
-    setUsers, toggleIsFetching,
-    UserType
-} from "../../redux/users-reducer";
+import {followUser, getUsers, unfollowUser, UserType} from "../../redux/users-reducer";
 import React, {useCallback, useEffect} from "react";
 import {Users} from "./Users";
 import {CircularProgress, Pagination} from "@mui/material";
-import {usersAPI} from "../../api/api";
 
 
 export const UsersContainer = React.memo(() => {
@@ -21,26 +15,21 @@ export const UsersContainer = React.memo(() => {
     const totalUsersCount = useSelector<RootStateType, number>(state => state.usersPage.totalUsersCount)
     const currentPage = useSelector<RootStateType, number>(state => state.usersPage.currentPage)
 
-
     useEffect(() => {
-        dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize)
-            .then(response => {
-                dispatch(toggleIsFetching(false))
-                dispatch(setUsers(response.items))
-                dispatch(setTotalUsersCount(response.totalCount))
-            })
+        dispatch(getUsers(currentPage, pageSize))
     }, [])
 
-    const changeCurrentPage = useCallback((pageNumber: number) => {
-        dispatch(setCurrentPage(pageNumber))
-        dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(pageNumber, pageSize)
-            .then(response => {
-                dispatch(toggleIsFetching(false))
-                dispatch(setUsers(response.items))
-            })
-    }, [])
+    const changeCurrentPage = useCallback((currentPage: number) => {
+        dispatch(getUsers(currentPage, pageSize))
+    }, [dispatch, pageSize])
+
+    const followUserHandler = useCallback((userID: number) => {
+        dispatch(followUser(userID))
+    }, [dispatch])
+
+    const unfollowUserHandler = useCallback((userID: number) => {
+        dispatch(unfollowUser(userID))
+    }, [dispatch])
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
 
@@ -52,7 +41,10 @@ export const UsersContainer = React.memo(() => {
             <Pagination count={pagesCount} color="primary" onChange={(e, value) => changeCurrentPage(value)}/>
         </div>
         {isFetching ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
-            <Users usersList={usersList} isFollowing={isFollowing}/>}
+            <Users usersList={usersList}
+                   isFollowing={isFollowing}
+                   followUserHandler={followUserHandler}
+                   unfollowUserHandler={unfollowUserHandler}/>}
     </div>
 
 })

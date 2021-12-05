@@ -1,19 +1,17 @@
 import React from 'react';
 import {Avatar, Button} from "@mui/material";
 import s from "./Users.module.scss";
-import {follow, toggleIsFollowing, unfollow, UserType} from "../../redux/users-reducer";
+import {UserType} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import axios from "axios";
 
 type UsersType = {
     usersList: Array<UserType>
     isFollowing: Array<number>
+    followUserHandler: (userID: number) => void
+    unfollowUserHandler: (userID: number) => void
 }
 
-export const Users = React.memo(({usersList, isFollowing}: UsersType) => {
-    const dispatch = useDispatch()
-
+export const Users = React.memo(({usersList, isFollowing, followUserHandler, unfollowUserHandler}: UsersType) => {
     return <div>
         <div className={s.users}>
             {usersList.map(u => {
@@ -26,39 +24,12 @@ export const Users = React.memo(({usersList, isFollowing}: UsersType) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <Button onClick={() => {
-                                    dispatch(toggleIsFollowing(true, u.id))
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '1e90b645-3ab8-4f0b-b1bb-01b70c47396d'
-                                        }
-                                    })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                dispatch(unfollow(u.id))
-                                            }
-                                            dispatch(toggleIsFollowing(false, u.id))
-                                        })
-                                }} variant="contained"
+                                ? <Button onClick={() => unfollowUserHandler(u.id)}
+                                          variant="contained"
                                           color="error"
                                           size='small'
                                           disabled={isFollowing.some(id => id === u.id)}>Unfollow</Button>
-                                : <Button onClick={() => {
-                                    dispatch(toggleIsFollowing(true, u.id))
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '1e90b645-3ab8-4f0b-b1bb-01b70c47396d'
-                                        }
-                                    })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                dispatch(follow(u.id))
-                                            }
-                                            dispatch(toggleIsFollowing(false, u.id))
-                                        })
-                                }}
+                                : <Button onClick={() => followUserHandler(u.id)}
                                           variant="contained"
                                           color="success"
                                           size='small'
