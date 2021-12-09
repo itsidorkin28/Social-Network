@@ -17,7 +17,7 @@ export const UsersContainer = React.memo(() => {
 
     useEffect(() => {
         dispatch(getUsers(currentPage, pageSize))
-    }, [])
+    }, [dispatch, currentPage, pageSize])
 
     const changeCurrentPage = useCallback((currentPage: number) => {
         dispatch(getUsers(currentPage, pageSize))

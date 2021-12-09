@@ -1,25 +1,27 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {v1} from "uuid";
+import { Dispatch } from "redux";
+import { profileAPI } from "../api/profile-api";
 
 export type UserDescriptionType = {
-    aboutMe?: string
-    contacts?: {
-        facebook?: string
-        website?: string
-        vk?: string
-        twitter?: string
-        instagram?: string
-        youtube?: string
-        github?: string
-        mainLink?: string
+    aboutMe: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
     },
-    lookingForAJob?: boolean
-    lookingForAJobDescription?: string
-    fullName?: string
-    userId?: number
-    photos?: {
-        small?: string
-        large?: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
     }
 }
 
@@ -98,4 +100,11 @@ export const changePost = (postText: string) => {
         type: 'CHANGE-POST-TEXT',
         postText
     } as const
+}
+
+export const setUserProfileThunk = (paramsUserID: string | undefined) => (dispatch: Dispatch) => {
+    profileAPI.getProfile(paramsUserID)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
 }

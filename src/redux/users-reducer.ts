@@ -1,15 +1,15 @@
 import {Dispatch} from "redux"
-import {usersAPI} from "../api/api";
+import {usersAPI} from "../api/users-api";
 
 export type UserType = {
     name: string
     id: number
-    uniqueUrlName?: string
-    photos?: {
-        small?: string
-        large?: string
+    uniqueUrlName: string
+    photos: {
+        small: string
+        large: string
     }
-    status?: string
+    status: string
     followed: boolean
 }
 

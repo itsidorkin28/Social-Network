@@ -8,7 +8,7 @@ export const AppRoutes = () => {
     return (
         <div>
             <Routes>
-                <Route path={'/profile/:userId'}
+                <Route path={'/profile/:userID'}
                        element={<ProfileContainer/>}/>
                 <Route path={'/dialogs'}
                        element={<DialogsContainer/>}/>
