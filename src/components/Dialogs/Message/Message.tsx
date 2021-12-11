@@ -5,10 +5,10 @@ export type MessageType = {
     id: string
     message: string
 }
-export const Message = (props: MessageType) => {
+export const Message = ({id, message}: MessageType) => {
     return (
         <div className={s.message}>
-            {props.message}
+            {message}
         </div>
     )
 }

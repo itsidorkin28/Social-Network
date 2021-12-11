@@ -1,41 +1,41 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react'
+import React, {ChangeEvent, KeyboardEvent, useCallback} from 'react'
 import s from './Dialogs.module.scss'
-import {DialogItem} from "./DialogItem/DialogItem";
-import {Message} from "./Message/Message";
+import {DialogItem, DialogItemType} from "./DialogItem/DialogItem";
+import {Message, MessageType} from "./Message/Message";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
-import {DialogsPageType} from "../../redux/dialogs-reducer";
+import {useDispatch} from "react-redux";
+import { changeMessage, sendMessage } from '../../redux/dialogs-reducer';
 
 type DialogsType = {
-    dialogsPage: DialogsPageType
-    sendMessage: (value: string) => void
-    changeMessage: (value: string) => void
+    dialogs: Array<DialogItemType>
+    messages: Array<MessageType>
+    messageText: string
 }
 
-export const Dialogs = (props: DialogsType) => {
-
-    const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    const messagesElements = props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
+export const Dialogs = ({dialogs, messages, messageText}: DialogsType) => {
+    const dispatch = useDispatch()
+    const dialogsElements = dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    const messagesElements = messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changeMessage(e.currentTarget.value);
+        dispatch(changeMessage(e.currentTarget.value))
     };
 
-    const sendMessage = () => {
-        const newMessage = props.dialogsPage.messageText.trim()
+    const sendMessageHandler = useCallback(() => {
+        const newMessage = messageText.trim()
         if (newMessage) {
-            props.sendMessage(newMessage)
+            dispatch(sendMessage(newMessage))
         }
-    }
+    }, [dispatch, messageText])
     const keyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.ctrlKey && e.key === 'Enter') {
-            sendMessage()
+            sendMessageHandler()
         }
     }
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -56,13 +56,13 @@ export const Dialogs = (props: DialogsType) => {
                             label="Type message"
                             multiline
                             maxRows={4}
-                            value={props.dialogsPage.messageText}
+                            value={messageText}
                             onChange={changeHandler}
                             onKeyPress={keyPressHandler}/>
 
                     </Box>
                     <Stack direction="row" spacing={1}>
-                        <Button variant="contained" endIcon={<SendIcon/>} onClick={sendMessage}>
+                        <Button variant="contained" endIcon={<SendIcon/>} onClick={sendMessageHandler}>
                             Send
                         </Button>
                     </Stack>

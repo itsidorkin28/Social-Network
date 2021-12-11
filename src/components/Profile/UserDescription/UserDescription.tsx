@@ -7,14 +7,13 @@ type UserDescriptionPropsType = {
     profile: UserDescriptionType
 }
 
-function UserDescription(props: UserDescriptionPropsType) {
+export const UserDescription = ({profile}: UserDescriptionPropsType) => {
     return (
         <div className={s.userDescription}>
-            <h3>{props.profile.fullName}</h3>
-            <Avatar alt={props.profile.fullName} src={props.profile.photos?.large} sx={{width: 150, height: 150}} style={{marginBottom: '15px'}}/>
-            <span>{props.profile.aboutMe}</span>
+            <h3>{profile.fullName}</h3>
+            <Avatar alt={profile.fullName} src={profile.photos?.large} sx={{width: 150, height: 150}} style={{marginBottom: '15px'}}/>
+            <span>{profile.aboutMe}</span>
         </div>
     )
 }
 
-export default UserDescription

@@ -4,19 +4,22 @@ import {Profile} from './Profile';
 import {setUserProfileThunk, UserDescriptionType} from "../../redux/profile-reducer";
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from "../../redux/redux-store";
-import {useParams} from 'react-router-dom';
+import {useMatch, useParams} from 'react-router-dom';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
-export const ProfileContainer = React.memo(() => {
+export const ProfileContainer = withAuthRedirect(() => {
     const dispatch = useDispatch()
     const profile = useSelector<RootStateType, UserDescriptionType>(state => state.profilePage.profile)
-    let {userID} = useParams()
-    // if(!userID){
-    //     userID = '2'
-    // }
-    useEffect(() => {
-       dispatch(setUserProfileThunk(userID))
-    }, [dispatch, userID])
+    let {userId} = useParams()
 
+    if(!userId){
+        userId = '2';
+    }
+
+
+    useEffect(() => {
+       dispatch(setUserProfileThunk(userId))
+    }, [dispatch, userId])
 
     return (
         <div className={s.profile}>

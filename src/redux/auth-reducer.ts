@@ -23,7 +23,7 @@ const initialState: AuthType = {
     messages: [],
     fieldsErrors: [],
     resultCode: 0,
-    isAuth: false
+    isAuth: false,
 }
 
 

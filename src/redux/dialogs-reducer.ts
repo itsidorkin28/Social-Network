@@ -19,7 +19,7 @@ const initialState = {
     messageText: ''
 }
 
-export type DialogsActionsTypes = SendMessageACType | ChangeMessageTextACType
+export type DialogsActionsTypes = SendMessageType | ChangeMessageTextType
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsTypes): DialogsPageType => {
     switch (action.type) {
@@ -33,16 +33,16 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Di
     }
 }
 
-type SendMessageACType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = (messageText: string) => {
+type SendMessageType = ReturnType<typeof sendMessage>
+export const sendMessage = (messageText: string) => {
     return {
         type: 'SEND-MESSAGE',
         messageText
     } as const
 }
 
-type ChangeMessageTextACType = ReturnType<typeof changeMessageAC>
-export const changeMessageAC = (messageText: string) => {
+type ChangeMessageTextType = ReturnType<typeof changeMessage>
+export const changeMessage = (messageText: string) => {
     return {
         type: 'CHANGE-MESSAGE-TEXT',
         messageText

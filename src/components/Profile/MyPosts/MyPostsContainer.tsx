@@ -1,19 +1,13 @@
-import { connect } from "react-redux";
-import {addPost, changePost, ProfilePageType} from "../../../redux/profile-reducer";
+import {useSelector} from "react-redux";
+import React from 'react'
+import {ProfilePageType} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {RootStateType} from "../../../redux/redux-store";
 
-type MapStateToPropsType = {
-    profilePage: ProfilePageType
-}
-const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
-    return {
-        profilePage: state.profilePage
-    }
-}
 
-export const MyPostsContainer = connect(mapStateToProps, {
-    changePost,
-    addPost,
-})(MyPosts)
+
+export const MyPostsContainer = React.memo(() => {
+    const profilePage = useSelector<RootStateType, ProfilePageType>(state => state.profilePage)
+    return <MyPosts profilePage={profilePage}/>
+})
 

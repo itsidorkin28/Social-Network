@@ -12,15 +12,17 @@ type HeaderType = {
 
 export const Header = React.memo(({isAuth, login}: HeaderType) => {
     return (
-        <Box sx={{ flexGrow: 1, mb: 2 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        SOCIAL NETWORK
-                    </Typography>
-                    {isAuth ? login : <Button color="inherit">Login</Button>}
-                </Toolbar>
-            </AppBar>
-        </Box>
+        <header>
+            <Box sx={{ flexGrow: 1, mb: 2 }}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            SOCIAL NETWORK
+                        </Typography>
+                        {isAuth ? login : <Button color="inherit">Login</Button>}
+                    </Toolbar>
+                </AppBar>
+            </Box>
+        </header>
     )
 })

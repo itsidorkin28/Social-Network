@@ -4,9 +4,10 @@ import {followUser, getUsers, unfollowUser, UserType} from "../../redux/users-re
 import React, {useCallback, useEffect} from "react";
 import {Users} from "./Users";
 import {CircularProgress, Pagination} from "@mui/material";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
-export const UsersContainer = React.memo(() => {
+export const UsersContainer = withAuthRedirect(() => {
     const dispatch = useDispatch()
     const isFetching = useSelector<RootStateType, boolean>(state => state.usersPage.isFetching)
     const isFollowing = useSelector<RootStateType, Array<number>>(state => state.usersPage.isFollowing)

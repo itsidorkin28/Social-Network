@@ -1,34 +1,16 @@
-import {connect} from 'react-redux';
-import { Dispatch } from 'redux';
-import {changeMessageAC, DialogsPageType, sendMessageAC} from '../../redux/dialogs-reducer';
+import React from 'react'
+import {useSelector} from 'react-redux';
 import { RootStateType } from '../../redux/redux-store';
 import {Dialogs} from "./Dialogs";
+import {DialogItemType} from "./DialogItem/DialogItem";
+import {MessageType} from "./Message/Message";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
-type MapStateToPropsType = {
-    dialogsPage: DialogsPageType
-}
 
-const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
-    return {
-        dialogsPage: state.dialogsPage
-    }
-}
+export const DialogsContainer = withAuthRedirect(() => {
+    const dialogs = useSelector<RootStateType, Array<DialogItemType>>(state => state.dialogsPage.dialogs)
+    const messages = useSelector<RootStateType, Array<MessageType>>(state => state.dialogsPage.messages)
+    const messageText = useSelector<RootStateType, string>(state => state.dialogsPage.messageText)
+    return <Dialogs dialogs={dialogs} messages={messages} messageText={messageText}/>
+})
 
-type MapDispatchToPropsType = {
-    changeMessage: (value: string) => void
-    sendMessage: (value: string) => void
-}
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        changeMessage: (value: string) => {
-            const action = changeMessageAC(value)
-            dispatch(action)
-        },
-        sendMessage: (value: string) => {
-            const action = sendMessageAC(value)
-            dispatch(action)
-        }
-    }
-}
-
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
