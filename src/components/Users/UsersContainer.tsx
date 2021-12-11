@@ -1,13 +1,14 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {followUser, getUsers, unfollowUser, UserType} from "../../redux/users-reducer";
-import React, {useCallback, useEffect} from "react";
+import React, {ComponentType, useCallback, useEffect} from "react";
 import {Users} from "./Users";
 import {CircularProgress, Pagination} from "@mui/material";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 
-export const UsersContainer = withAuthRedirect(() => {
+const UsersContainer = withAuthRedirect(() => {
     const dispatch = useDispatch()
     const isFetching = useSelector<RootStateType, boolean>(state => state.usersPage.isFetching)
     const isFollowing = useSelector<RootStateType, Array<number>>(state => state.usersPage.isFollowing)
@@ -50,4 +51,5 @@ export const UsersContainer = withAuthRedirect(() => {
 
 })
 
+export default compose<ComponentType>(withAuthRedirect)(UsersContainer)
 
