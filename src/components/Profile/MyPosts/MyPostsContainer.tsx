@@ -1,13 +1,14 @@
 import {useSelector} from "react-redux";
 import React from 'react'
-import {ProfilePageType} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {RootStateType} from "../../../redux/redux-store";
+import {PostType} from "./Post/Post";
 
 
 
 export const MyPostsContainer = React.memo(() => {
-    const profilePage = useSelector<RootStateType, ProfilePageType>(state => state.profilePage)
-    return <MyPosts profilePage={profilePage}/>
+    const posts = useSelector<RootStateType, Array<PostType>>(state => state.profilePage.posts)
+    const postText = useSelector<RootStateType, string>(state => state.profilePage.postText)
+    return <MyPosts postText={postText} posts={posts}/>
 })
 

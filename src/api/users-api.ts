@@ -12,9 +12,7 @@ export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
         return instance.get<GetUserType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
-                console.log(response.data)
                 return response.data
-
             })
     },
     followUser(userID: number) {
@@ -32,7 +30,7 @@ type PostAndDeleteFollowType = {
     resultCode: number
 }
 
-type UserType = {
+export type UserType = {
     name: string
     id: number
     uniqueUrlName: string

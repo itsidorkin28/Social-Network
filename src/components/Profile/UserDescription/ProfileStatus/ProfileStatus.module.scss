@@ -1,0 +1,15 @@
+.profileStatus {
+    .input {
+        padding: 5px 10px;
+    }
+    .span {
+        padding: 5px 10px;
+        cursor: pointer;
+        .noStatus {
+            opacity: 0.5;
+        }
+        &:hover {
+            background-color: #F5F5F5;
+        }
+    }
+}

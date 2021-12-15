@@ -1,6 +1,6 @@
-import {MessageType} from "../components/Dialogs/Message/Message";
+import {MessageType} from "../../components/Dialogs/Message/Message";
 import {v1} from "uuid";
-import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
+import {DialogItemType} from "../../components/Dialogs/DialogItem/DialogItem";
 
 export type DialogsPageType = {
     dialogs: Array<DialogItemType>

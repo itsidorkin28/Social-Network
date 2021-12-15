@@ -1,20 +1,12 @@
 import {Dispatch} from "redux";
-import { authAPI } from "../api/auth-api";
+import {authAPI, AuthType} from "../../api/auth-api";
 
-type AuthType = {
-    data: DataType
-    messages: Array<string>
-    fieldsErrors: Array<any>
-    resultCode: number
+
+type AuthDomainType = AuthType & {
     isAuth: boolean
 }
 
-type DataType = {
-    id: number
-    login: string
-    email: string
-}
-const initialState: AuthType = {
+const initialState: AuthDomainType = {
     data: {
         id: 20566,
         login: "itsidorkin",
@@ -27,7 +19,7 @@ const initialState: AuthType = {
 }
 
 
-export const authReducer = (state = initialState, action: AuthActionsTypes): AuthType => {
+export const authReducer = (state = initialState, action: AuthActionsTypes): AuthDomainType => {
     switch (action.type) {
         case 'SET-AUTH-USER-DATA':
             return {...state, ...action.data, isAuth: true}
@@ -35,6 +27,8 @@ export const authReducer = (state = initialState, action: AuthActionsTypes): Aut
             return state
     }
 }
+
+// AC
 
 export type AuthActionsTypes = SetUserDataType
 
@@ -45,6 +39,8 @@ export const setAuthUserData = (id: number, login: string, email: string) => {
         data: {id, login, email}
     } as const
 }
+
+// Thunk
 
 export const getAuthUserData = (dispatch: Dispatch) => {
     authAPI.authMe()

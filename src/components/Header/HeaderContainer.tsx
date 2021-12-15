@@ -3,7 +3,7 @@ import {Header} from "./Header";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {RootStateType} from "../../redux/redux-store";
-import {getAuthUserData} from "../../redux/auth-reducer";
+import {getAuthUserData} from "../../redux/auth/auth-reducer";
 
 
 export const HeaderContainer = React.memo(() => {

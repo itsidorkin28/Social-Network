@@ -10,17 +10,19 @@ const instance = axios.create({
 
 export const authAPI = {
     authMe() {
-        return instance.get<GetAuth>('auth/me')
+        return instance.get<AuthType>('auth/me')
     }
 }
 
-type GetAuth = {
-    data: {
-        login: string
-        id: number
-        email: string
-    }
+export type AuthType = {
+    data: DataType
     messages: Array<string>
     fieldsErrors: Array<string>
     resultCode: number
+}
+
+type DataType = {
+    id: number
+    login: string
+    email: string
 }

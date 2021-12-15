@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import {useDispatch} from "react-redux";
-import { changeMessage, sendMessage } from '../../redux/dialogs-reducer';
+import { changeMessage, sendMessage } from '../../redux/dialogs/dialogs-reducer';
 
 type DialogsType = {
     dialogs: Array<DialogItemType>

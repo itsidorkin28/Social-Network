@@ -1,8 +1,8 @@
 import React from 'react';
 import {Avatar, Button} from "@mui/material";
 import s from "./Users.module.scss";
-import {UserType} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
+import { UserType } from '../../api/users-api';
 
 type UsersType = {
     usersList: Array<UserType>

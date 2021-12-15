@@ -1,5 +1,4 @@
 import axios from "axios";
-import {UserDescriptionType} from "../redux/profile-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -11,6 +10,42 @@ const instance = axios.create({
 
 export const profileAPI = {
     getProfile(paramsUserID: string | undefined) {
-        return instance.get<UserDescriptionType>(`profile/${paramsUserID}`)
+        return instance.get<ProfileType>(`profile/${paramsUserID}`)
+    },
+    getStatus(userId: string | undefined) {
+        return instance.get<string>(`profile/status/${userId}`)
+    },
+    updateStatus(status: string) {
+        return instance.put<UpdateStatusType>(`profile/status`, {status})
+    }
+
+}
+
+type UpdateStatusType = {
+    data: {}
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    resultCode: number
+}
+
+export type ProfileType = {
+    aboutMe: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
+    },
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
     }
 }

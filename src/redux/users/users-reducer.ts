@@ -1,19 +1,7 @@
 import {Dispatch} from "redux"
-import {usersAPI} from "../api/users-api";
+import {usersAPI, UserType} from "../../api/users-api";
 
-export type UserType = {
-    name: string
-    id: number
-    uniqueUrlName: string
-    photos: {
-        small: string
-        large: string
-    }
-    status: string
-    followed: boolean
-}
-
-export type UsersPageType = {
+export type UsersDomainType = {
     usersList: Array<UserType>
     pageSize: number
     totalUsersCount: number
@@ -23,7 +11,7 @@ export type UsersPageType = {
     disableButton: boolean
 }
 
-const initialState: UsersPageType = {
+const initialState: UsersDomainType = {
     usersList: [],
     pageSize: 10,
     totalUsersCount: 0,
@@ -33,7 +21,7 @@ const initialState: UsersPageType = {
     disableButton: false,
 }
 
-export const usersReducer = (state = initialState, action: UsersActionsTypes): UsersPageType => {
+export const usersReducer = (state = initialState, action: UsersActionsTypes): UsersDomainType => {
     switch (action.type) {
         case 'FOLLOW':
             return {...state, usersList: state.usersList.map(u => u.id === action.id ? {...u, followed: true} : u)}
@@ -58,6 +46,8 @@ export const usersReducer = (state = initialState, action: UsersActionsTypes): U
             return state
     }
 }
+
+// AC
 
 export type UsersActionsTypes =
     FollowType
@@ -124,6 +114,8 @@ export const setTotalUsersCount = (totalUsersCount: number) => {
         totalUsersCount,
     } as const
 }
+
+// Thunk
 
 export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
