@@ -1,56 +1,66 @@
 import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
-import {followUser, getUsers, unfollowUser} from "../../redux/users/users-reducer";
+import {AppStateType} from "../../app/redux-store";
+import {FilterType, followUserTC, getUsersTC, unfollowUserTC} from "./users-reducer";
 import React, {ComponentType, memo, useCallback, useEffect} from "react";
 import {Users} from "./Users";
 import {CircularProgress, Pagination} from "@mui/material";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
-import { UserType } from "../../api/users-api";
+import {compose} from "redux";
+import {UserType} from "../../api/users-api";
+import {UsersSearchForm} from "./UsersSearchForm";
 
 
 const UsersContainer = () => {
     const dispatch = useDispatch()
-    const isFetching = useSelector<RootStateType, boolean>(state => state.usersPage.isFetching)
-    const isFollowing = useSelector<RootStateType, Array<number>>(state => state.usersPage.isFollowing)
-    const usersList = useSelector<RootStateType, Array<UserType>>(state => state.usersPage.usersList)
-    const pageSize = useSelector<RootStateType, number>(state => state.usersPage.pageSize)
-    const totalUsersCount = useSelector<RootStateType, number>(state => state.usersPage.totalUsersCount)
-    const currentPage = useSelector<RootStateType, number>(state => state.usersPage.currentPage)
+    const isFetching = useSelector<AppStateType, boolean>(state => state.usersPage.isFetching)
+    const isFollowing = useSelector<AppStateType, Array<number>>(state => state.usersPage.isFollowing)
+    const usersList = useSelector<AppStateType, Array<UserType>>(state => state.usersPage.usersList)
+    const pageSize = useSelector<AppStateType, number>(state => state.usersPage.pageSize)
+    const totalUsersCount = useSelector<AppStateType, number>(state => state.usersPage.totalUsersCount)
+    const currentPage = useSelector<AppStateType, number>(state => state.usersPage.currentPage)
+    const filter = useSelector<AppStateType, FilterType>(state => state.usersPage.filter)
+
+
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(getUsersTC(1, pageSize, filter))
+    }
 
     useEffect(() => {
-        dispatch(getUsers(currentPage, pageSize))
-    }, [dispatch, currentPage, pageSize])
+        dispatch(getUsersTC(currentPage, pageSize, filter))
+    }, [dispatch, currentPage, pageSize, filter])
 
     const changeCurrentPage = useCallback((currentPage: number) => {
-        dispatch(getUsers(currentPage, pageSize))
-    }, [dispatch, pageSize])
+        dispatch(getUsersTC(currentPage, pageSize, filter))
+    }, [dispatch, pageSize, filter])
 
     const followUserHandler = useCallback((userID: number) => {
-        dispatch(followUser(userID))
+        dispatch(followUserTC(userID))
     }, [dispatch])
 
     const unfollowUserHandler = useCallback((userID: number) => {
-        dispatch(unfollowUser(userID))
+        dispatch(unfollowUserTC(userID))
     }, [dispatch])
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
 
     return <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+        <UsersSearchForm onFilterChanged={onFilterChanged}/>
+
+        {isFetching ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
+            <Users usersList={usersList}
+                   isFollowing={isFollowing}
+                   followUserHandler={followUserHandler}
+                   unfollowUserHandler={unfollowUserHandler}/>}
         <div style={{
             display: 'flex',
             justifyContent: 'center',
         }}>
             <Pagination count={pagesCount} color="primary" onChange={(e, value) => changeCurrentPage(value)}/>
         </div>
-        {isFetching ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
-            <Users usersList={usersList}
-                   isFollowing={isFollowing}
-                   followUserHandler={followUserHandler}
-                   unfollowUserHandler={unfollowUserHandler}/>}
     </div>
 
 }
+
 
 export default compose<ComponentType>(withAuthRedirect, memo)(UsersContainer)
 

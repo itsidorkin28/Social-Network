@@ -1,9 +1,9 @@
 import React from 'react'
 import './index.scss'
-import {store} from "./redux/redux-store";
+import {store} from "./app/redux-store";
 import ReactDOM from 'react-dom'
 import './index.scss'
-import {App} from './App'
+import {App} from './app/App'
 import reportWebVitals from './reportWebVitals'
 import {BrowserRouter} from "react-router-dom"
 import {Provider} from 'react-redux';

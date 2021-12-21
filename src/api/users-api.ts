@@ -1,4 +1,5 @@
 import axios from "axios";
+import { FilterType } from "../components/Users/users-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -9,8 +10,9 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get<GetUserType>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage: number = 1, pageSize: number = 10, filter: FilterType = {term: '', friend: null}) {
+        return instance.get<GetUserType>(`users?page=${currentPage}&count=${pageSize}&term=${filter.term}`
+            + (filter.friend === null ? '' : `&friend=${filter.friend}`))
             .then(response => {
                 return response.data
             })
