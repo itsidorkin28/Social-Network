@@ -4,7 +4,7 @@ import {useCallback} from "react";
 import React from "react";
 import {addPost} from "../profile-reducer";
 import {useDispatch} from "react-redux";
-import {MyPostsForm} from "./MyPostsForm";
+import {MyPostsForm} from "./MyPostsForm/MyPostsForm";
 
 type MyPostType = {
     posts: Array<PostType>

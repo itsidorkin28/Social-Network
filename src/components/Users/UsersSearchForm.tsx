@@ -1,6 +1,7 @@
 import {Field, Form, Formik} from "formik";
 import React from "react";
 import {FilterType} from "./users-reducer";
+import * as Yup from 'yup';
 
 type UsersSearchFormType = {
     onFilterChanged: (filter: FilterType) => void
@@ -10,10 +11,10 @@ type FormType = {
     term: string
     friend: 'null' | 'true' | 'false'
 }
-const userSearchFormValidate = (values: any) => {
-    const errors = {}
-    return errors
-}
+const validationSchema = Yup.object({
+    term: Yup.string()
+        .max(300, 'Must be 300 characters or less')
+})
 
 export const UsersSearchForm = React.memo(({onFilterChanged}: UsersSearchFormType) => {
     const submit = (values: FormType, {setSubmitting}: { setSubmitting: (setSubmitting: boolean) => void }) => {
@@ -28,7 +29,7 @@ export const UsersSearchForm = React.memo(({onFilterChanged}: UsersSearchFormTyp
         <Formik
             initialValues={{term: '', friend: 'null'}}
             onSubmit={submit}
-            validate={userSearchFormValidate}
+            validationSchema={validationSchema}
         >
             {
                 ({isSubmitting}) => (

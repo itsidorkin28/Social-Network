@@ -1,14 +1,15 @@
 import React from "react";
 import {useDispatch} from "react-redux";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { sendMessage } from "./dialogs-reducer";
+import * as Yup from "yup";
 
-const userSearchFormValidate = (values: any) => {
-    const errors = {}
-    return errors
-}
+const validationSchema = Yup.object({
+    newMessageBody: Yup.string()
+        .max(300, 'Must be 300 characters or less')
+})
 
 type FormType = {
     newMessageBody: string
@@ -28,12 +29,13 @@ export const AddMessageForm = React.memo(() => {
         <Formik
             initialValues={{newMessageBody: ''}}
             onSubmit={submit}
-            validate={userSearchFormValidate}
+            validationSchema={validationSchema}
         >
             {
                 ({isSubmitting}) => (
                     <Form>
                         <Field component={'textarea'} name="newMessageBody" placeholder='Type message'/>
+                        <ErrorMessage name="newMessageBody" />
                         <Button type="submit" variant="contained" endIcon={<SendIcon/>} disabled={isSubmitting}>
                             Send
                         </Button>
