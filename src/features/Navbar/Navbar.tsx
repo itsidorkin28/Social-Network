@@ -11,13 +11,8 @@ export function Navbar() {
                </NavLink>
             </div>
             <div>
-                <NavLink to='/dialogs' className={({ isActive }) => isActive ? s.active : ''}>
-                    Messages
-                </NavLink>
-            </div>
-            <div>
                 <NavLink to='/users' className={({ isActive }) => isActive ? s.active : ''}>
-                    Find Users
+                    Users
                 </NavLink>
             </div>
         </nav>

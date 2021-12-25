@@ -3,15 +3,14 @@ import s from './MyPosts.module.scss'
 import {useCallback} from "react";
 import React from "react";
 import {addPost} from "../profile-reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {MyPostsForm} from "./MyPostsForm/MyPostsForm";
+import {AppStateType} from "../../../app/redux-store";
 
-type MyPostType = {
-    posts: Array<PostType>
-}
 
-export const MyPosts = React.memo(({posts}: MyPostType) => {
+export const MyPosts = React.memo(() => {
     const dispatch = useDispatch()
+    const posts = useSelector<AppStateType, Array<PostType>>(state => state.profilePage.posts)
     const postsElements = posts.map(m => <Post key={m.id} id={m.id} post={m.post}
                                                                  likesCount={m.likesCount}/>)
 

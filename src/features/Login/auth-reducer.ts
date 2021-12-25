@@ -19,7 +19,7 @@ const initialState: AuthDomainType = {
 }
 
 
-export const authReducer = (state = initialState, action: AuthActionsTypes): AuthDomainType => {
+export const authReducer = (state = initialState, action: AuthActionsType): AuthDomainType => {
     switch (action.type) {
         case 'SET-AUTH-USER-DATA':
             return {...state, data: {...state.data, ...action.payload}, isAuth: action.isAuth}
@@ -30,7 +30,7 @@ export const authReducer = (state = initialState, action: AuthActionsTypes): Aut
 
 // AC
 
-export type AuthActionsTypes = ReturnType<typeof setAuthUserData>
+export type AuthActionsType = ReturnType<typeof setAuthUserData>
 
 export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => {
     return {
@@ -48,12 +48,12 @@ export const getAuthUserDataTC = (): ThunkType => async dispatch => {
         let {id, login, email} = res.data.data
         dispatch(setAuthUserData(id, login, email, true))
     }
+    return res
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkType => async dispatch => {
     const res = await authAPI.login(email, password, rememberMe)
     if (res.data.resultCode === 0) {
-        debugger
         dispatch(getAuthUserDataTC())
     }
 }

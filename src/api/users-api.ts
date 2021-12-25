@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FilterType } from "../components/Users/users-reducer";
+import { FilterType } from "../features/Users/users-reducer";
 
 const instance = axios.create({
     withCredentials: true,

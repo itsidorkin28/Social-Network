@@ -3,7 +3,7 @@ import s from './Login.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../app/redux-store";
 import {Navigate} from "react-router-dom";
-import {ErrorMessage, Field, Form, Formik } from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import {loginTC} from "./auth-reducer";
 
@@ -33,7 +33,7 @@ const LoginForm = () => {
 
     return <div>
         <Formik
-            initialValues={{ email: '', password: '', rememberMe: false }}
+            initialValues={{email: '', password: '', rememberMe: false}}
             validationSchema={validationSchema}
             onSubmit={submit}
         >
@@ -41,13 +41,13 @@ const LoginForm = () => {
                 ({isSubmitting}) => (
                     <Form className={s.loginForm}>
                         <Field name="email" type="email" placeholder={'Email'}/>
-                        <ErrorMessage name="email" />
+                        <ErrorMessage name="email"/>
 
                         <Field name="password" type="password" placeholder={'Password'}/>
-                        <ErrorMessage name="password" />
+                        <ErrorMessage name="password"/>
 
                         <div>
-                            <Field name="rememberMe" type="checkbox" />
+                            <Field name="rememberMe" type="checkbox"/>
                             <label htmlFor="rememberMe">Remember me</label>
                         </div>
 
@@ -60,12 +60,13 @@ const LoginForm = () => {
 
 export const Login = React.memo(() => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-    if (isAuth) return <Navigate to={"/profile"}/>
     return (
-        <div className={s.login}>
-            <h1>Login</h1>
-            <LoginForm/>
-        </div>
+        isAuth ? <Navigate replace to="/profile"/>
+            :
+            <div className={s.login}>
+                <h1>Login</h1>
+                <LoginForm/>
+            </div>
     )
 })
 

@@ -20,7 +20,7 @@ const initialState: ProfileDomainType = {
 }
 
 
-export const profileReducer = (state = initialState, action: ProfileActionsTypes): ProfileDomainType => {
+export const profileReducer = (state = initialState, action: ProfileActionsType): ProfileDomainType => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostType = {id: action.id, post: action.postText, likesCount: 0}
@@ -37,7 +37,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsTypes
 
 // AC
 
-export type ProfileActionsTypes =
+export type ProfileActionsType =
     ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatusProfile>

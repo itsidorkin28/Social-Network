@@ -32,7 +32,7 @@ const initialState: UsersDomainType = {
     }
 }
 
-export const usersReducer = (state = initialState, action: UsersActionsTypes): UsersDomainType => {
+export const usersReducer = (state = initialState, action: UsersActionsType): UsersDomainType => {
     switch (action.type) {
         case 'FOLLOW':
             return {...state, usersList: state.usersList.map(u => u.id === action.id ? {...u, followed: true} : u)}
@@ -62,7 +62,7 @@ export const usersReducer = (state = initialState, action: UsersActionsTypes): U
 
 // AC
 
-export type UsersActionsTypes =
+export type UsersActionsType =
     ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
     | ReturnType<typeof setUsers>
@@ -99,10 +99,11 @@ export const setTotalUsersCount = (totalUsersCount: number) => {
 
 // Thunk
 
-export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => async dispatch => {
+export const getUsersTC = (page: number, pageSize: number, filter: FilterType): ThunkType => async dispatch => {
     dispatch(toggleIsFetching(true))
     dispatch(setFilter(filter))
-    const res = await usersAPI.getUsers(currentPage, pageSize, filter)
+    dispatch(setCurrentPage(page))
+    const res = await usersAPI.getUsers(page, pageSize, filter)
     dispatch(toggleIsFetching(false))
     dispatch(setUsers(res.items))
     dispatch(setTotalUsersCount(res.totalCount))

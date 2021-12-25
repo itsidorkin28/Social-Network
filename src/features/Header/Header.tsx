@@ -4,16 +4,17 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logoutTC} from "../Login/auth-reducer";
+import {AppStateType} from "../../app/redux-store";
+import {RequestStatusType} from "../../app/app-reducer";
+import {LinearProgress} from "@mui/material";
 
-type HeaderType = {
-    isAuth: boolean
-    login: string | null
-}
-
-export const Header = React.memo(({isAuth, login}: HeaderType) => {
+export const Header = React.memo(() => {
     const dispatch = useDispatch()
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const login = useSelector<AppStateType, string | null>(state => state.auth.data.login)
+    const appStatus = useSelector<AppStateType, RequestStatusType>(state => state.app.appStatus)
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
@@ -28,6 +29,7 @@ export const Header = React.memo(({isAuth, login}: HeaderType) => {
                         {isAuth ? login : <Button color="inherit">Login</Button>}
                         {isAuth ? <Button color="inherit" onClick={() => logoutHandler()}>Logout</Button> : null}
                     </Toolbar>
+                    {appStatus === 'loading' && <LinearProgress />}
                 </AppBar>
             </Box>
         </header>
