@@ -1,8 +1,8 @@
-import Post, {PostType} from "./Post/Post";
+import Post from "./Post/Post";
 import s from './MyPosts.module.scss'
 import {useCallback} from "react";
 import React from "react";
-import {addPost} from "../profile-reducer";
+import {addPost, PostType} from "../profile-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {MyPostsForm} from "./MyPostsForm/MyPostsForm";
 import {AppStateType} from "../../../app/redux-store";

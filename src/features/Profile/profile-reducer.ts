@@ -1,10 +1,10 @@
-import {PostType} from "./MyPosts/Post/Post";
 import {v1} from "uuid";
 import {profileAPI, ProfileType} from "../../api/profile-api";
 import {ThunkType} from "../../app/redux-store";
 import {setAppStatus} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
+export type PostType = {id: string, post: string, likesCount: number}
 
 export type ProfileDomainType = {
     profile: ProfileType | null
@@ -14,8 +14,8 @@ export type ProfileDomainType = {
 
 const initialState: ProfileDomainType = {
     posts: [
-        {id: v1(), post: 'Hello!', likesCount: 3, avatar: '', name: ''},
-        {id: v1(), post: 'JS!', likesCount: 9, avatar: '', name: ''},
+        {id: v1(), post: 'Hello!', likesCount: 3},
+        {id: v1(), post: 'JS!', likesCount: 9},
     ],
     profile: null,
     status: '',

@@ -1,7 +1,7 @@
 import {Avatar} from '@mui/material'
 import s from './Post.module.scss'
 
-export type PostType = {
+export type PostPropsType = {
     id: string
     post: string
     likesCount: number
@@ -9,7 +9,7 @@ export type PostType = {
     name: string | undefined
 }
 
-function Post(props: PostType) {
+function Post(props: PostPropsType) {
     return (
         <div className={s.post}>
             <div className={s.postHeader}>
