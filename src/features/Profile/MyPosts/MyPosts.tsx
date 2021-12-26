@@ -7,11 +7,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {MyPostsForm} from "./MyPostsForm/MyPostsForm";
 import {AppStateType} from "../../../app/redux-store";
 
-
-export const MyPosts = React.memo(() => {
+type MyPostsPropsType = {
+    avatar: string | undefined
+    name: string | undefined
+}
+export const MyPosts = React.memo(({avatar, name}: MyPostsPropsType) => {
     const dispatch = useDispatch()
     const posts = useSelector<AppStateType, Array<PostType>>(state => state.profilePage.posts)
-    const postsElements = posts.map(m => <Post key={m.id} id={m.id} post={m.post}
+    const postsElements = posts.map(m => <Post key={m.id} id={m.id} post={m.post} avatar={avatar} name={name}
                                                                  likesCount={m.likesCount}/>)
 
     const addPostHandler = useCallback((value: string) => {
@@ -23,11 +26,13 @@ export const MyPosts = React.memo(() => {
 
     return (
         <div className={s.myPosts}>
-            <h3>All posts</h3>
             <div className={s.postForm}>
                 <MyPostsForm addPostHandler={addPostHandler}/>
             </div>
-            {postsElements}
+            <div className={s.allPosts}>
+                {postsElements}
+            </div>
+
         </div>
     )
 })

@@ -1,8 +1,12 @@
 .login {
+    h1 {
+        margin: 0 0 15px 0;
+        padding: 0;
+    }
 
+    width: 35%;
+    margin: 30px;
 }
 
-.loginForm {
-    display: flex;
-    flex-direction: column;
-}
+
+

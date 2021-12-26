@@ -3,13 +3,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    div {
-        a {
-            text-decoration: none;
-            color: black;
-            &.active {
-                color: black;
-            }
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 15px 0 rgba(34, 60, 80, 0.1);
+    a {
+        text-decoration: none;
+        color: gray;
+        font-weight: 600;
+        &:hover {
+            color: #2254f5
+        }
+        &.active {
+
         }
     }
+
 }

@@ -1,70 +1,17 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import s from './Login.module.scss'
-import {useDispatch, useSelector} from "react-redux";
+import {LoginForm} from "./LoginForm/LoginForm";
 import {AppStateType} from "../../app/redux-store";
-import {Navigate} from "react-router-dom";
-import {ErrorMessage, Field, Form, Formik} from 'formik';
-import * as Yup from 'yup';
-import {loginTC} from "./auth-reducer";
-
-type LoginFormType = {
-    email: string,
-    password: string,
-    rememberMe: boolean
-}
-
-const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email address').required('Required'),
-    password: Yup.string()
-        .required('No password provided')
-        .min(8, 'Password is too short - should be 8 chars minimum.')
-        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
-})
-
-const LoginForm = () => {
-    const dispatch = useDispatch()
-    const loginHandler = (email: string, password: string, rememberMe: boolean) => {
-        dispatch(loginTC(email, password, rememberMe))
-    }
-    const submit = (values: LoginFormType, {setSubmitting}: { setSubmitting: (setSubmitting: boolean) => void }) => {
-        loginHandler(values.email, values.password, values.rememberMe)
-        setSubmitting(false)
-    }
-
-    return <div>
-        <Formik
-            initialValues={{email: '', password: '', rememberMe: false}}
-            validationSchema={validationSchema}
-            onSubmit={submit}
-        >
-            {
-                ({isSubmitting}) => (
-                    <Form className={s.loginForm}>
-                        <Field name="email" type="email" placeholder={'Email'}/>
-                        <ErrorMessage name="email"/>
-
-                        <Field name="password" type="password" placeholder={'Password'}/>
-                        <ErrorMessage name="password"/>
-
-                        <div>
-                            <Field name="rememberMe" type="checkbox"/>
-                            <label htmlFor="rememberMe">Remember me</label>
-                        </div>
-
-                        <button type="submit" disabled={isSubmitting}>Login</button>
-                    </Form>)
-            }
-        </Formik>
-    </div>
-}
+import {RequestStatusType} from "../../app/app-reducer";
 
 export const Login = React.memo(() => {
-    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const appStatus = useSelector<AppStateType, RequestStatusType>(state => state.app.appStatus)
     return (
-        isAuth ? <Navigate replace to="/profile"/>
+        appStatus === 'loading' ? <></>
             :
             <div className={s.login}>
-                <h1>Login</h1>
+                <h1>Login into your account</h1>
                 <LoginForm/>
             </div>
     )

@@ -20,7 +20,7 @@ export type FilterType = typeof initialState.filter
 
 const initialState: UsersDomainType = {
     usersList: [],
-    pageSize: 10,
+    pageSize: 12,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,

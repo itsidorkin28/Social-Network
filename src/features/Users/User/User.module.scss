@@ -1,18 +1,64 @@
 .users {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+
     .user {
-        border: 1px solid #ebe8e8;
-        border-radius: 5px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px 0 rgba(34, 60, 80, 0.1);
         color: black;
-        margin: 10px;
+        font-weight: 700;
+        font-size: 14px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 10px;
-        div {
-            margin-bottom: 3px;
+        padding: 16px 16px 24px 16px;
+
+        h4 {
+        margin: 16px 0 0 0;
+        }
+
+        p {
+            margin: 0 0 16px 0;
+            font-weight: 500;
+            color: #adb5bd;
+            font-size: 12px;
+        }
+
+        .followBtn {
+            font-size: 11px;
+            letter-spacing: 1px;
+            font-weight: 700;
+            background-color: #10d876;
+            color: #fff;
+            outline: none;
+            border: none;
+            padding: 15px 30px;
+
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: middle;
+            border-radius: 30px;
+
+        }
+
+        .unfollowBtn {
+            font-size: 11px;
+            letter-spacing: 1px;
+            font-weight: 700;
+            background-color: #fa3649;
+            color: #fff;
+            outline: none;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: middle;
+            border-radius: 30px;
+
+        }
+        button:disabled {
+            background-color: #adb5bd;
         }
     }
 }

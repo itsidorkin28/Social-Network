@@ -1,20 +1,16 @@
 import s from './Navbar.module.scss'
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 export function Navbar() {
     return (
         <nav className={s.navbar}>
-            <div>
-               <NavLink to='/profile' className={({ isActive }) => isActive ? s.active : ''}>
-                   Profile
-               </NavLink>
-            </div>
-            <div>
-                <NavLink to='/users' className={({ isActive }) => isActive ? s.active : ''}>
-                    Users
-                </NavLink>
-            </div>
+            <NavLink to='/profile' className={({isActive}) => isActive ? s.active : ''}>
+                Profile
+            </NavLink>
+            <NavLink to='/users' className={({isActive}) => isActive ? s.active : ''}>
+                Users
+            </NavLink>
         </nav>
     )
 }

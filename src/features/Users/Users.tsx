@@ -4,14 +4,12 @@ import {FilterType, followUserTC, getUsersTC, unfollowUserTC, UsersDomainType} f
 import React, {useCallback, useEffect} from "react";
 import {User} from "./User/User";
 import {CircularProgress, Pagination} from "@mui/material";
-import {UsersSearchForm} from "./UsersSearchForm";
-import { Navigate } from "react-router-dom";
-
+import {UsersSearchForm} from "./UsersSearchForm/UsersSearchForm";
+import s from './Users.module.scss'
 
 export const Users = React.memo(() => {
     const dispatch = useDispatch()
     const usersPage = useSelector<AppStateType, UsersDomainType>(state => state.usersPage)
-    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
     const onFilterChanged = (filter: FilterType) => {
         dispatch(getUsersTC(1, usersPage.pageSize, filter))
@@ -36,24 +34,25 @@ export const Users = React.memo(() => {
     let pagesCount = Math.ceil(usersPage.totalUsersCount / usersPage.pageSize)
 
     return (
-        !isAuth ?
-            <Navigate replace to="/login" />
-            :
-        <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-        <UsersSearchForm onFilterChanged={onFilterChanged}/>
+        <div className={s.users}>
+            <div className={s.searchBlock}>
+                <div>
+                    <h2>Users</h2>
+                </div>
+                <div>
+                    <UsersSearchForm onFilterChanged={onFilterChanged}/>
+                </div>
+            </div>
 
-        {usersPage.isFetching ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
-            <User usersList={usersPage.usersList}
-                  isFollowing={usersPage.isFollowing}
-                  followUserHandler={followUserHandler}
-                  unfollowUserHandler={unfollowUserHandler}/>}
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-        }}>
-            <Pagination count={pagesCount} color="primary" onChange={(e, value) => changeCurrentPage(value)}/>
-        </div>
-    </div>)
+            {usersPage.isFetching ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
+                <User usersList={usersPage.usersList}
+                      isFollowing={usersPage.isFollowing}
+                      followUserHandler={followUserHandler}
+                      unfollowUserHandler={unfollowUserHandler}/>}
+            <div className={s.pagination}>
+                <Pagination count={pagesCount} color="primary" onChange={(e, value) => changeCurrentPage(value)}/>
+            </div>
+        </div>)
 
 })
 

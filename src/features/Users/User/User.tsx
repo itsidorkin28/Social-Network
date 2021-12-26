@@ -1,8 +1,9 @@
 import React from 'react';
-import {Avatar, Button} from "@mui/material";
 import s from "./User.module.scss";
 import {NavLink} from 'react-router-dom';
 import { UserType } from '../../../api/users-api';
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
 
 type UsersType = {
     usersList: Array<UserType>
@@ -14,35 +15,34 @@ type UsersType = {
 export const User = React.memo(({usersList, isFollowing, followUserHandler, unfollowUserHandler}: UsersType) => {
     const mappedUsers = usersList.map(u => {
         return (
-            <div key={u.id} className={s.user}>
+            <Grid key={u.id} item xs={3}>
+
+            <div className={s.user}>
                 <div>
                     <NavLink to={'/profile/' + u.id}>
-                        <Avatar alt={u.name} src={u.photos?.small} sx={{width: 100, height: 100}}/>
+                        <Avatar alt={u.name} src={u.photos?.small} sx={{width: 65, height: 65}}/>
                     </NavLink>
                 </div>
+                <h4>{u.name}</h4>
+                <p>ID: {u.id}</p>
                 <div>
                     {u.followed
-                        ? <Button onClick={() => unfollowUserHandler(u.id)}
-                                  variant="contained"
-                                  color="error"
-                                  size='small'
-                                  disabled={isFollowing.some(id => id === u.id)}>Unfollow</Button>
-                        : <Button onClick={() => followUserHandler(u.id)}
-                                  variant="contained"
-                                  color="success"
-                                  size='small'
-                                  disabled={isFollowing.some(id => id === u.id)}>Follow</Button>}
+                        ? <button className={s.unfollowBtn} onClick={() => unfollowUserHandler(u.id)}
+                                  disabled={isFollowing.some(id => id === u.id)}>UNFOLLOW</button>
+                        : <button className={s.followBtn} onClick={() => followUserHandler(u.id)}
+                                  disabled={isFollowing.some(id => id === u.id)}>FOLLOW</button>}
                 </div>
-                <span>{u.name}</span>
-                <span>{u.status}</span>
             </div>
+            </Grid>
+
         )
     })
 
-
-
     return <div className={s.users}>
-        {mappedUsers}
+        <Grid container spacing={2}>
+            {mappedUsers}
+
+        </Grid>
     </div>
 })
 

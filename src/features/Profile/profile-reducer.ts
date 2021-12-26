@@ -2,6 +2,8 @@ import {PostType} from "./MyPosts/Post/Post";
 import {v1} from "uuid";
 import {profileAPI, ProfileType} from "../../api/profile-api";
 import {ThunkType} from "../../app/redux-store";
+import {setAppStatus} from "../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 
 export type ProfileDomainType = {
@@ -55,16 +57,37 @@ export const addPost = (postText: string) => {
 // Thunk
 
 export const setUserProfileTC = (paramsUserID: string | undefined): ThunkType => async dispatch => {
-    const res = await profileAPI.getProfile(paramsUserID)
-    dispatch(setUserProfile(res.data))
+    dispatch(setAppStatus('loading'))
+    try {
+        const res = await profileAPI.getProfile(paramsUserID)
+        dispatch(setUserProfile(res.data))
+        dispatch(setAppStatus('succeeded'))
+    } catch (e) {
+        handleServerNetworkError((e as Error), dispatch)
+    }
 }
 export const setStatusProfileTC = (paramsUserID: string | undefined): ThunkType => async dispatch => {
-    const res = await profileAPI.getStatus(paramsUserID)
-    dispatch(setStatusProfile(res.data))
+    dispatch(setAppStatus('loading'))
+    try {
+        const res = await profileAPI.getStatus(paramsUserID)
+        dispatch(setStatusProfile(res.data))
+        dispatch(setAppStatus('succeeded'))
+    } catch (e) {
+        handleServerNetworkError((e as Error), dispatch)
+    }
+
 }
 export const updateStatusProfileTC = (status: string): ThunkType => async dispatch => {
-    const res = await profileAPI.updateStatus(status)
-    if (res.data.resultCode === 0) {
-        dispatch(setStatusProfile(status))
+    dispatch(setAppStatus('loading'))
+    try {
+        const res = await profileAPI.updateStatus(status)
+        if (res.data.resultCode === 0) {
+            dispatch(setStatusProfile(status))
+            dispatch(setAppStatus('succeeded'))
+        } else {
+            handleServerAppError(res.data, dispatch)
+        }
+    } catch (e) {
+        handleServerNetworkError((e as Error), dispatch)
     }
 }

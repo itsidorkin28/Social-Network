@@ -1,0 +1,18 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;;
+    margin-top: 15px;
+    width: 100%;
+    .nav {
+        width: 20%;
+        margin: 0 30px;
+    }
+    .content {
+        display: flex;
+        justify-content: center;
+        margin: 0 85px;
+        width: 80%;
+    }
+}

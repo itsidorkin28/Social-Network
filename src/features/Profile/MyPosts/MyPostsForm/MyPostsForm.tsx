@@ -3,6 +3,7 @@ import React from "react";
 import {PostAdd} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
 import * as Yup from 'yup';
+import s from './MyPostsForm.module.scss'
 
 type MyPostsFormType = {
     addPostHandler: (value: string) => void
@@ -22,7 +23,7 @@ export const MyPostsForm = React.memo(({addPostHandler}: MyPostsFormType) => {
         addPostHandler(values.postText)
         setSubmitting(false)
     }
-    return <div>
+    return <div style={{width: '100%'}}>
         <Formik
             initialValues={{postText: ''}}
             onSubmit={submit}
@@ -30,12 +31,13 @@ export const MyPostsForm = React.memo(({addPostHandler}: MyPostsFormType) => {
         >
             {
                 ({isSubmitting}) => (
-                    <Form>
-                        <Field component={'textarea'} name="postText" type="text" placeholder={'Type post'}/>
-                        <ErrorMessage name="postText" />
-                        <IconButton type="submit" disabled={isSubmitting} style={{marginLeft: '5px'}}>
+                    <Form className={s.myPostsForm}>
+                        <IconButton type="submit" disabled={isSubmitting} style={{margin: '0 0 5px 0'}}>
                             <PostAdd color="primary"/>
                         </IconButton>
+                        <span>Create post</span>
+                        <Field component={'textarea'} name="postText" type="text" placeholder={'What\'s on your mind?'}/>
+                        <ErrorMessage name="postText" />
 
                     </Form>)
             }

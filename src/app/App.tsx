@@ -2,29 +2,36 @@ import React, {useEffect} from 'react'
 import './App.module.scss'
 import s from './App.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {initializationAppTC, RequestStatusType} from "./app-reducer";
+import {RequestStatusType} from "./app-reducer";
 import {AppStateType} from './redux-store';
 import {Header} from "../features/Header/Header";
 import {Main} from "../features/Main/Main";
-
+import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
+import {getAuthUserDataTC} from '../features/Login/auth-reducer';
+import {Login} from "../features/Login/Login";
 
 export const App = () => {
     const dispatch = useDispatch()
-    const appStatus = useSelector<AppStateType, RequestStatusType>(state => state.app.appStatus)
+    const appInitialization = useSelector<AppStateType, boolean>(state => state.app.initialization)
 
     useEffect(() => {
-        dispatch(initializationAppTC())
+        dispatch(getAuthUserDataTC())
     }, [dispatch])
 
     return (
-        <div>
-            {appStatus === 'loading'
-                ? <></>
-                : <div className={s.app}>
+        <div className={s.app}>
+            <ErrorSnackbar/>
+            {appInitialization
+                ? <>
                     <Header/>
                     <Main/>
-                </div>}
+                </>
+                : <>
+                    <Login/>
+                </>}
+
         </div>
+
     );
 }
 

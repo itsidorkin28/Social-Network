@@ -1,11 +1,37 @@
 .post {
-    margin-top: 10px;
+    margin-top: 16px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 15px 0 rgba(34, 60, 80, 0.1);
+    width: 100%;
+    padding: 24px;
+
+    .postHeader {
+        display: flex;
+        margin-bottom: 15px;
+
+        h4 {
+            margin: 0 0 0 15px;
+            color: #212529;
+            font-size: 12px;
+            font-weight: 700;
+        }
+    }
+    p {
+        color: #adb5bd;
+        font-weight: 500;
+        font-size: 12px;
+        margin: 0 0 10px 0;
+    }
     span {
-        margin-left: 5px;
+        color: #212529;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 26px;
     }
 }
 

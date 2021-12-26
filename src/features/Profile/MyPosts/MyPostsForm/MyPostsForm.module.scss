@@ -1,0 +1,25 @@
+.myPostsForm {
+    width: 100%;
+    span {
+        color: #adb5bd;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 0 0 5px;
+        padding-bottom: 5px;
+    }
+    textarea {
+        min-width: 100%;
+        max-width: 100%;
+        font-weight: 500;
+        color: #adb5bd;
+        border-radius: 15px;
+        border: 2px solid #f1f1f1;
+        font-size: 12px;
+        min-height: 100px;
+        max-height: 100px;
+        padding: 8px 8px 8px 15px;
+        &:focus, :active {
+            outline: none;
+        }
+    }
+}
