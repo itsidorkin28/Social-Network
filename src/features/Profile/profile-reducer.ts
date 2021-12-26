@@ -14,8 +14,8 @@ export type ProfileDomainType = {
 
 const initialState: ProfileDomainType = {
     posts: [
-        {id: v1(), post: 'Hello!', likesCount: 3},
-        {id: v1(), post: 'JS!', likesCount: 9}
+        {id: v1(), post: 'Hello!', likesCount: 3, avatar: '', name: ''},
+        {id: v1(), post: 'JS!', likesCount: 9, avatar: '', name: ''},
     ],
     profile: null,
     status: '',
