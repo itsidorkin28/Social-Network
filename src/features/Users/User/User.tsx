@@ -15,7 +15,7 @@ type UsersType = {
 export const User = React.memo(({usersList, isFollowing, followUserHandler, unfollowUserHandler}: UsersType) => {
     const mappedUsers = usersList.map(u => {
         return (
-            <Grid key={u.id} item xs={3}>
+            <Grid key={u.id} item xs>
 
             <div className={s.user}>
                 <div>
@@ -39,9 +39,8 @@ export const User = React.memo(({usersList, isFollowing, followUserHandler, unfo
     })
 
     return <div className={s.users}>
-        <Grid container spacing={2}>
+        <Grid spacing={2} container>
             {mappedUsers}
-
         </Grid>
     </div>
 })

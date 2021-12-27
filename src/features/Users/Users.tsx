@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../app/redux-store";
-import {FilterType, followUserTC, getUsersTC, unfollowUserTC, UsersDomainType} from "./users-reducer";
+import {FilterType, followUserTC, getUsersTC, setCurrentPage, unfollowUserTC, UsersDomainType} from "./users-reducer";
 import React, {useCallback, useEffect} from "react";
 import {User} from "./User/User";
 import {CircularProgress, Pagination} from "@mui/material";
@@ -17,6 +17,9 @@ export const Users = React.memo(() => {
 
     useEffect(() => {
         dispatch(getUsersTC(usersPage.currentPage, usersPage.pageSize, usersPage.filter))
+        return function () {
+            setCurrentPage(1)
+        }
     }, [dispatch, usersPage.currentPage, usersPage.pageSize, usersPage.filter])
 
     const changeCurrentPage = useCallback((currentPage: number) => {

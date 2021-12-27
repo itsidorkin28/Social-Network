@@ -12,6 +12,15 @@ import {Avatar} from "@mui/material";
 import styled from 'styled-components';
 import imag from '../../assets/images/bgnode.jpg'
 
+const HeadImg = styled.div<{ img: any }>`
+        border-radius: 15px;
+        height: 70%;
+        width: 100%;
+        background-image: url(${props => props.img});
+        background-position: center;
+        background-size: cover;
+        overflow: hidden;
+    `
 
 export const Profile = React.memo(() => {
     const dispatch = useDispatch()
@@ -30,15 +39,6 @@ export const Profile = React.memo(() => {
         dispatch(setStatusProfileTC(userId))
     }, [dispatch, userId])
 
-    const HeadImg = styled.div<{ img: any }>`
-        border-radius: 15px;
-        height: 70%;
-        width: 100%;
-        background-image: url(${props => props.img});
-        background-position: center;
-        background-size: cover;
-        overflow: hidden;
-    `
     return (
         <div className={s.profile}>
             <div className={s.profileHeader}>

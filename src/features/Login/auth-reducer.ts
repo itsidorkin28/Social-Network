@@ -1,6 +1,6 @@
 import {authAPI, AuthMeData, ResponseType} from "../../api/auth-api";
 import {ThunkType} from "../../app/redux-store";
-import {setAppError, setAppInitialization, setAppStatus} from "../../app/app-reducer";
+import {setAppInitialization, setAppStatus} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 

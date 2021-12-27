@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../auth-reducer";
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import {Field, Form, Formik} from "formik";
 import React from "react";
 import s from './LoginForm.module.scss'
 import {AppStateType} from "../../../app/redux-store";
@@ -41,10 +41,10 @@ export const LoginForm = () => {
                 ({isSubmitting}) => (
                     <Form className={s.loginForm}>
                         <Field name="email" type="email" placeholder={'Email'}/>
-                        {/*<ErrorMessage name="email"/>*/}
+
 
                         <Field name="password" type="password" placeholder={'Password'}/>
-                        {/*<ErrorMessage name="password"/>*/}
+
 
                         <div className={s.remember}>
                             <div><Field name="rememberMe" type="checkbox"/></div>
