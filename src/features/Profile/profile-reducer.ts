@@ -5,16 +5,6 @@ import {RequestStatusType, setAppStatus} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {usersAPI} from "../../api/users-api";
 
-export type PostType = { id: string, post: string, likesCount: number }
-
-export type ProfileDomainType = {
-    profile: ProfileType | null
-    posts: Array<PostType>
-    status: string
-    followed: boolean
-    isFollowing: RequestStatusType
-}
-
 const initialState: ProfileDomainType = {
     posts: [
         {id: v1(), post: 'Hello!', likesCount: 3},
@@ -26,20 +16,14 @@ const initialState: ProfileDomainType = {
     isFollowing: 'idle',
 }
 
-export type ProfileActionsType =
-    ReturnType<typeof addPost>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setStatusProfile>
-    | ReturnType<typeof setFollowedUser>
-
 export const profileReducer = (state = initialState, action: ProfileActionsType): ProfileDomainType => {
     switch (action.type) {
-        case 'ADD-POST':
+        case 'PROFILE/ADD-POST':
             const newPost: PostType = {id: action.id, post: action.postText, likesCount: 0}
             return {...state, posts: [newPost, ...state.posts]}
-        case 'SET-USER-PROFILE':
+        case 'PROFILE/SET-USER-PROFILE':
             return {...state, profile: action.profile}
-        case "SET-STATUS-PROFILE":
+        case "PROFILE/SET-STATUS-PROFILE":
             return {...state, status: action.status}
         case "PROFILE/SET-FOLLOWED-USER":
             return {...state, followed: action.followed}
@@ -51,13 +35,13 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
 // AC
 
 export const setStatusProfile = (status: string) => {
-    return {type: 'SET-STATUS-PROFILE', status} as const
+    return {type: 'PROFILE/SET-STATUS-PROFILE', status} as const
 }
 export const setUserProfile = (profile: ProfileType) => {
-    return {type: 'SET-USER-PROFILE', profile} as const
+    return {type: 'PROFILE/SET-USER-PROFILE', profile} as const
 }
 export const addPost = (postText: string) => {
-    return {type: 'ADD-POST', postText, id: v1()} as const
+    return {type: 'PROFILE/ADD-POST', postText, id: v1()} as const
 }
 export const setFollowedUser = (followed: boolean) => {
     return {type: 'PROFILE/SET-FOLLOWED-USER', followed} as const
@@ -109,3 +93,21 @@ export const getUserFollowedTC = (userId: number): ThunkType => async dispatch =
         handleServerNetworkError((e as Error), dispatch)
     }
 }
+
+// Types
+
+export type PostType = { id: string, post: string, likesCount: number }
+
+export type ProfileDomainType = {
+    profile: ProfileType | null
+    posts: Array<PostType>
+    status: string
+    followed: boolean
+    isFollowing: RequestStatusType
+}
+
+export type ProfileActionsType =
+    ReturnType<typeof addPost>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatusProfile>
+    | ReturnType<typeof setFollowedUser>

@@ -3,11 +3,6 @@ import {ThunkType} from "../../app/redux-store";
 import {setAppInitialization, setAppStatus} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
-
-export type AuthDomainType = ResponseType<AuthMeData> & {
-    isAuth: boolean
-}
-
 const initialState: AuthDomainType = {
     data: {
         id: null,
@@ -23,7 +18,7 @@ const initialState: AuthDomainType = {
 
 export const authReducer = (state = initialState, action: AuthActionsType): AuthDomainType => {
     switch (action.type) {
-        case 'SET-AUTH-USER-DATA':
+        case 'AUTH/SET-AUTH-USER-DATA':
             return {...state, data: {...state.data, ...action.payload}, isAuth: action.isAuth}
         default:
             return state
@@ -32,11 +27,9 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
 
 // AC
 
-export type AuthActionsType = ReturnType<typeof setAuthUserData>
-
 export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => {
     return {
-        type: 'SET-AUTH-USER-DATA',
+        type: 'AUTH/SET-AUTH-USER-DATA',
         payload: {id, login, email},
         isAuth
     } as const
@@ -94,3 +87,11 @@ export const logoutTC = (): ThunkType => async dispatch => {
         handleServerNetworkError((e as Error), dispatch)
     }
 }
+
+// Types
+
+export type AuthDomainType = ResponseType<AuthMeData> & {
+    isAuth: boolean
+}
+
+export type AuthActionsType = ReturnType<typeof setAuthUserData>
