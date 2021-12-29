@@ -1,0 +1,26 @@
+@mixin followButton($color) {
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    background-color: $color;
+    color: #fff;
+    outline: none;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    border-radius: 30px;
+    &:disabled {
+        background-color: #adb5bd;
+    }
+}
+
+.followBtn {
+    @include followButton(#10d876);
+}
+
+.unfollowBtn {
+    @include followButton(#fa3649);
+}

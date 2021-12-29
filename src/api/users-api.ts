@@ -23,6 +23,9 @@ export const usersAPI = {
     unfollowUser(userID: number) {
         return instance.delete<PostAndDeleteFollowType>(`follow/${userID}`)
     },
+    getFollowed(userID: number) {
+        return instance.get<boolean>(`follow/${userID}`)
+    }
 }
 
 type PostAndDeleteFollowType = {

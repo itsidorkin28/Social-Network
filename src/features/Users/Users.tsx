@@ -47,9 +47,8 @@ export const Users = React.memo(() => {
                 </div>
             </div>
 
-            {usersPage.isFetching ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
+            {usersPage.isFetching === 'loading' ? <CircularProgress style={{marginTop: '30px', marginBottom: '20px'}}/> :
                 <User usersList={usersPage.usersList}
-                      isFollowing={usersPage.isFollowing}
                       followUserHandler={followUserHandler}
                       unfollowUserHandler={unfollowUserHandler}/>}
             <div className={s.pagination}>

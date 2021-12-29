@@ -1,16 +1,18 @@
 import s from './Profile.module.scss'
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {About} from './About/About';
 import {ProfileType} from "../../api/profile-api";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../app/redux-store";
 import {useParams} from "react-router-dom";
-import {setStatusProfileTC, setUserProfileTC} from "./profile-reducer";
+import {getUserFollowedTC, setStatusProfileTC, setUserProfileTC} from "./profile-reducer";
 import {MyPosts} from './MyPosts/MyPosts';
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {Avatar} from "@mui/material";
 import styled from 'styled-components';
 import imag from '../../assets/images/bgnode.jpg'
+import {FollowButton} from "../../components/FollowButton/FollowButton";
+import {followUserTC, unfollowUserTC} from "../Users/users-reducer";
 
 const HeadImg = styled.div<{ img: any }>`
         border-radius: 15px;
@@ -25,6 +27,7 @@ const HeadImg = styled.div<{ img: any }>`
 export const Profile = React.memo(() => {
     const dispatch = useDispatch()
     const profile = useSelector<AppStateType, ProfileType | null>(state => state.profilePage.profile)
+    const followed = useSelector<AppStateType, boolean>(state => state.profilePage.followed)
     const status = useSelector<AppStateType, string>(state => state.profilePage.status)
     const authUserId = useSelector<AppStateType, number | null>(state => state.auth.data.id)
     let {userId}: any = useParams()
@@ -33,11 +36,22 @@ export const Profile = React.memo(() => {
         userId = authUserId;
     }
 
+    useEffect(() => {
+        dispatch(getUserFollowedTC(userId))
+    }, [dispatch, userId])
 
     useEffect(() => {
         dispatch(setUserProfileTC(userId))
         dispatch(setStatusProfileTC(userId))
     }, [dispatch, userId])
+
+    const followUserHandler = useCallback((userID: number) => {
+        dispatch(followUserTC(userID))
+    }, [dispatch])
+
+    const unfollowUserHandler = useCallback((userID: number) => {
+        dispatch(unfollowUserTC(userID))
+    }, [dispatch])
 
     return (
         <div className={s.profile}>
@@ -58,7 +72,11 @@ export const Profile = React.memo(() => {
                             <ProfileStatus status={status}/>
                         </div>
                         <div>
-                            <button>ssss</button>
+                            <FollowButton followed={followed}
+                                          followUserHandler={followUserHandler}
+                                          unfollowUserHandler={unfollowUserHandler}
+                                          userId={userId}
+                                         />
                         </div>
                     </div>
                 </div>

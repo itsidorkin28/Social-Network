@@ -13,7 +13,7 @@
         padding: 16px 16px 24px 16px;
 
         h4 {
-        margin: 16px 0 0 0;
+            margin: 16px 0 0 0;
         }
 
         p {
@@ -23,42 +23,5 @@
             font-size: 12px;
         }
 
-        .followBtn {
-            font-size: 11px;
-            letter-spacing: 1px;
-            font-weight: 700;
-            background-color: #10d876;
-            color: #fff;
-            outline: none;
-            border: none;
-            padding: 15px 30px;
-
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            vertical-align: middle;
-            border-radius: 30px;
-
-        }
-
-        .unfollowBtn {
-            font-size: 11px;
-            letter-spacing: 1px;
-            font-weight: 700;
-            background-color: #fa3649;
-            color: #fff;
-            outline: none;
-            border: none;
-            padding: 15px 30px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            vertical-align: middle;
-            border-radius: 30px;
-
-        }
-        button:disabled {
-            background-color: #adb5bd;
-        }
     }
 }

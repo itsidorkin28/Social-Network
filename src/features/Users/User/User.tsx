@@ -4,15 +4,15 @@ import {NavLink} from 'react-router-dom';
 import { UserType } from '../../../api/users-api';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
+import {FollowButton} from "../../../components/FollowButton/FollowButton";
 
 type UsersType = {
     usersList: Array<UserType>
-    isFollowing: Array<number>
     followUserHandler: (userID: number) => void
     unfollowUserHandler: (userID: number) => void
 }
 
-export const User = React.memo(({usersList, isFollowing, followUserHandler, unfollowUserHandler}: UsersType) => {
+export const User = React.memo(({usersList, followUserHandler, unfollowUserHandler}: UsersType) => {
     const mappedUsers = usersList.map(u => {
         return (
             <Grid key={u.id} item xs>
@@ -26,11 +26,10 @@ export const User = React.memo(({usersList, isFollowing, followUserHandler, unfo
                 <h4>{u.name}</h4>
                 <p>ID: {u.id}</p>
                 <div>
-                    {u.followed
-                        ? <button className={s.unfollowBtn} onClick={() => unfollowUserHandler(u.id)}
-                                  disabled={isFollowing.some(id => id === u.id)}>UNFOLLOW</button>
-                        : <button className={s.followBtn} onClick={() => followUserHandler(u.id)}
-                                  disabled={isFollowing.some(id => id === u.id)}>FOLLOW</button>}
+                    <FollowButton followed={u.followed}
+                                  userId={u.id}
+                                  followUserHandler={followUserHandler}
+                                  unfollowUserHandler={unfollowUserHandler}/>
                 </div>
             </div>
             </Grid>

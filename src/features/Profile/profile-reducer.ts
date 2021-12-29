@@ -1,15 +1,18 @@
 import {v1} from "uuid";
 import {profileAPI, ProfileType} from "../../api/profile-api";
 import {ThunkType} from "../../app/redux-store";
-import {setAppStatus} from "../../app/app-reducer";
+import {RequestStatusType, setAppStatus} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {usersAPI} from "../../api/users-api";
 
-export type PostType = {id: string, post: string, likesCount: number}
+export type PostType = { id: string, post: string, likesCount: number }
 
 export type ProfileDomainType = {
     profile: ProfileType | null
     posts: Array<PostType>
     status: string
+    followed: boolean
+    isFollowing: RequestStatusType
 }
 
 const initialState: ProfileDomainType = {
@@ -19,8 +22,15 @@ const initialState: ProfileDomainType = {
     ],
     profile: null,
     status: '',
+    followed: false,
+    isFollowing: 'idle',
 }
 
+export type ProfileActionsType =
+    ReturnType<typeof addPost>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatusProfile>
+    | ReturnType<typeof setFollowedUser>
 
 export const profileReducer = (state = initialState, action: ProfileActionsType): ProfileDomainType => {
     switch (action.type) {
@@ -31,18 +41,14 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
             return {...state, profile: action.profile}
         case "SET-STATUS-PROFILE":
             return {...state, status: action.status}
+        case "PROFILE/SET-FOLLOWED-USER":
+            return {...state, followed: action.followed}
         default:
             return state
     }
 }
 
-
 // AC
-
-export type ProfileActionsType =
-    ReturnType<typeof addPost>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setStatusProfile>
 
 export const setStatusProfile = (status: string) => {
     return {type: 'SET-STATUS-PROFILE', status} as const
@@ -52,6 +58,9 @@ export const setUserProfile = (profile: ProfileType) => {
 }
 export const addPost = (postText: string) => {
     return {type: 'ADD-POST', postText, id: v1()} as const
+}
+export const setFollowedUser = (followed: boolean) => {
+    return {type: 'PROFILE/SET-FOLLOWED-USER', followed} as const
 }
 
 // Thunk
@@ -87,6 +96,15 @@ export const updateStatusProfileTC = (status: string): ThunkType => async dispat
         } else {
             handleServerAppError(res.data, dispatch)
         }
+    } catch (e) {
+        handleServerNetworkError((e as Error), dispatch)
+    }
+}
+
+export const getUserFollowedTC = (userId: number): ThunkType => async dispatch => {
+    try {
+        const res = await usersAPI.getFollowed(userId)
+        dispatch(setFollowedUser(res.data))
     } catch (e) {
         handleServerNetworkError((e as Error), dispatch)
     }
