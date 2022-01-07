@@ -1,20 +1,19 @@
-import React from 'react'
-import './index.scss'
-import {store} from "./app/redux-store";
-import ReactDOM from 'react-dom'
-import './index.scss'
-import {App} from './app/App'
-import reportWebVitals from './reportWebVitals'
-import {BrowserRouter} from "react-router-dom"
+import './index.scss';
+import {store} from './app/redux-store';
+import ReactDOM from 'react-dom';
+import './index.scss';
+import {App} from './app/App';
+import reportWebVitals from './reportWebVitals';
+import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </BrowserRouter>,
-    document.getElementById('root')
+	<HashRouter>
+		<Provider store={store}>
+			<App/>
+		</Provider>
+	</HashRouter>,
+	document.getElementById('root')
 );
 
 
