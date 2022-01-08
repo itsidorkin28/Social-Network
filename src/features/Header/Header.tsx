@@ -27,7 +27,8 @@ export const Header = React.memo(() => {
 						?
 						<div className={s.loginInfo}>
 							<span>{login}</span>
-							<button className={s.logoutBtn} onClick={() => logoutHandler()} disabled={appStatus === 'loading'}>
+							<button className={s.logoutBtn} onClick={() => logoutHandler()}
+									disabled={appStatus === 'loading'}>
 								<LogoutIcon sx={{fontSize: '35px', color: '#2254f5'}}/>
 							</button>
 						</div>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import {useDispatch, useSelector } from 'react-redux';
+import MuiAlert, {AlertProps} from '@mui/material/Alert';
+import {useDispatch, useSelector} from 'react-redux';
 import {AppErrorType, setAppError} from '../../app/app-reducer';
 import {AppStateType} from '../../app/redux-store';
 
@@ -26,8 +26,9 @@ export function ErrorSnackbar() {
 	};
 
 	return (
-		<Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{horizontal: 'center', vertical: 'bottom'}}>
-			<Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
+		<Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}
+				  anchorOrigin={{horizontal: 'center', vertical: 'bottom'}}>
+			<Alert onClose={handleClose} severity='error' sx={{width: '100%'}}>
 				{error}
 			</Alert>
 		</Snackbar>

@@ -36,8 +36,9 @@ export const MyPostsForm = React.memo(({addPostHandler}: MyPostsFormType) => {
 							<PostAdd color='primary'/>
 						</IconButton>
 						<span>Create post</span>
-						<Field component={'textarea'} name='postText' type='text' placeholder={'What\'s on your mind?'}/>
-						<ErrorMessage name='postText' />
+						<Field component={'textarea'} name='postText' type='text'
+							   placeholder={'What\'s on your mind?'}/>
+						<ErrorMessage name='postText'/>
 
 					</Form>)
 			}

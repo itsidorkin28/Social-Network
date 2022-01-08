@@ -48,8 +48,8 @@ export const ProfileStatus = React.memo(({status}: ProfileStatusType) => {
 		<div className={s.profileStatus}>
 			{editMode && <div className={s.input}>
 				<input type={'text'} onChange={updateStatus} autoFocus onFocus={handleFocus}
-							onBlur={offEditMode}
-							value={localStatus} onKeyPress={keyHandler} disabled={appStatus === 'loading'}/>
+						onBlur={offEditMode}
+						value={localStatus} onKeyPress={keyHandler} disabled={appStatus === 'loading'}/>
 			</div>}
 			{!editMode && <div className={s.span} onClick={onEditMode}>
 				{status ? status : <span className={s.noStatus}>type status</span>}

@@ -23,10 +23,10 @@ export const FollowButton = React.memo(({
 		<div>
 			{followed
 				? <button className={s.unfollowBtn} onClick={() => unfollowUserHandler(userId)}
-							disabled={disabledButton}>UNFOLLOW
+						  disabled={disabledButton}>UNFOLLOW
 				</button>
 				: <button className={s.followBtn} onClick={() => followUserHandler(userId)}
-							disabled={disabledButton}>FOLLOW
+						  disabled={disabledButton}>FOLLOW
 				</button>}
 		</div>
 	);

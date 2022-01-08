@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {ProfileActionsType, profileReducer} from '../features/Profile/profile-reducer';
 import {UsersActionsType, usersReducer} from '../features/Users/users-reducer';
 import {AuthActionsType, authReducer} from '../features/Login/auth-reducer';
-import thunkMiddleware, { ThunkAction } from 'redux-thunk';
+import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import {appReducer, AppReducerActionsType} from './app-reducer';
 
 const rootReducer = combineReducers({

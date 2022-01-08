@@ -15,7 +15,7 @@ export const MyPosts = React.memo(({avatar, name}: MyPostsPropsType) => {
 	const dispatch = useDispatch();
 	const posts = useSelector<AppStateType, Array<PostType>>(state => state.profilePage.posts);
 	const postsElements = posts.map(m => <Post key={m.id} id={m.id} post={m.post} avatar={avatar} name={name}
-																	likesCount={m.likesCount}/>);
+											   likesCount={m.likesCount}/>);
 
 	const addPostHandler = useCallback((value: string) => {
 		const newPost = value.trim();
